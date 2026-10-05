@@ -1,0 +1,2941 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<title>VRectPro Guide</title>
+<style>
+:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#0f0f13;--card:#16161b;--card2:#1d1d23;--card3:#26262d;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.13);
+--hi:#e9e9ef;--tx:#d2d2db;--mut:#9494a9;--ac:#F97316;--acs:#f4a469;--ok:#5fcf8a;--warn:#e3c364;--bad:#ee7d75;--info:#7aaef0}
+html{scroll-padding-top:16px;scroll-behavior:smooth;height:100%}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI Variable","Segoe UI",Roboto,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{display:grid;grid-template-columns:230px minmax(0,1fr);max-width:1180px;margin:0 auto}
+nav{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;height:100vh;overflow:auto;padding:28px 18px;border-right:1px solid var(--line)}
+nav b{display:block;font-size:19px;letter-spacing:-.03em;color:var(--hi);margin-bottom:14px}nav b i{color:var(--ac);font-style:normal}
+nav a{display:block;color:var(--mut);text-decoration:none;padding:6px 10px;margin:1px 0;font-size:14px;border-radius:7px}
+nav a:hover,nav a:focus-visible{color:var(--hi);background:var(--card2);outline:0}
+main{padding:44px 36px 90px;min-width:0;max-width:820px}
+h1{font-size:36px;letter-spacing:-.03em;margin:0 0 10px;line-height:1.15;color:var(--hi)}
+h2{font-size:25px;margin:60px 0 10px;letter-spacing:-.02em;color:var(--hi);padding-top:6px}
+h3{font-size:17px;margin:26px 0 6px;color:var(--hi)}
+p{margin:10px 0;max-width:68ch}.lead{color:var(--mut);font-size:18px}
+a{color:var(--acs)}b{color:var(--hi);font-weight:600}
+code,kbd{font:13px ui-monospace,"SF Mono",Consolas,monospace;background:var(--card2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:#e6c9ae}
+kbd{color:var(--hi)}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto;font:13px/1.55 ui-monospace,Consolas,monospace;margin:8px 0}
+.co{border-left:3px solid var(--c);background:var(--card);border-radius:0 10px 10px 0;padding:11px 16px;margin:16px 0;font-size:15px;max-width:68ch}
+.co b.t{color:var(--c);display:block;font-size:14px;margin-bottom:2px}
+.info{--c:var(--info)}.warn{--c:var(--warn)}.bad{--c:var(--bad)}.ok{--c:var(--ok)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+.steps li{counter-increment:s;position:relative;padding:3px 0 12px 42px;max-width:68ch}
+.steps li:before{content:counter(s);position:absolute;left:0;top:3px;width:27px;height:27px;border-radius:50%;background:var(--ac);color:#1a1005;font-weight:700;display:grid;place-items:center;font-size:13px}
+.sweep{position:relative;overflow:hidden;display:inline-block;background:var(--card2);color:var(--hi);font-weight:700;text-decoration:none;padding:10px 18px;border-radius:9px;border:1px solid var(--ac)}
+.sweep:after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:sweep 2.6s ease-in-out infinite}
+@keyframes sweep{0%{left:-60%}60%,100%{left:130%}}
+.tabs{display:flex;gap:6px;margin:14px 0 0}.tabs button{background:var(--card);color:var(--mut);border:1px solid var(--line);border-bottom:0;border-radius:9px 9px 0 0;padding:9px 16px;font:inherit;font-size:15px;cursor:pointer}
+.tabs button.on{color:var(--hi);background:var(--card2);border-color:var(--line2);box-shadow:inset 0 2px 0 var(--ac)}
+.tp{display:none;background:var(--card2);border:1px solid var(--line2);border-radius:0 10px 10px 10px;padding:8px 20px 14px}.tp.on{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}.card h3{margin:0 0 4px;font-size:16px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.5px}th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}th{color:var(--hi);font-weight:600;background:var(--card)}td:first-child{white-space:nowrap;color:var(--hi)}
+.tw{overflow-x:auto}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:8px 0;max-width:68ch}summary{cursor:pointer;padding:12px 16px;color:var(--hi);font-weight:600;list-style:none}summary::-webkit-details-marker{display:none}summary:before{content:"+";color:var(--ac);display:inline-block;width:20px;font-weight:700}details[open] summary:before{content:"–"}
+details[open] summary{border-bottom:1px solid var(--line)}details>div{padding:4px 16px 12px}
+:focus-visible{outline:2px solid var(--acs);outline-offset:2px}
+.ex{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:start;margin-top:14px}
+#mockframe{width:100%;max-width:340px;height:465px;border:1px solid var(--line2);border-radius:12px;background:#0b0b0d;display:block}
+.tip{position:sticky;top:20px;background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:20px;min-height:250px}
+.tip h3{margin:0 0 4px;font-size:20px}.tip .k{font-size:13px;color:var(--acs);font-weight:600}
+.tip .mod{margin-top:10px;display:grid;gap:6px}.tip .mod div{background:var(--card2);border-radius:8px;padding:8px 11px;font-size:14.5px}
+.tip .mod div.lit{outline:2px solid var(--ac);background:var(--card3)}
+.hint{color:var(--mut);font-size:14px;margin-top:8px}
+@media(max-width:820px){.wrap{grid-template-columns:1fr}nav{position:static;height:auto;border:0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:2px 8px;padding:18px 16px}nav b{width:100%;margin-bottom:6px}main{padding:26px 16px 60px}.ex{grid-template-columns:1fr;gap:12px}.tip{position:sticky;top:auto;bottom:calc(8px + env(safe-area-inset-bottom,0px));max-height:38vh;min-height:0;overflow:auto;padding:14px;z-index:5;box-shadow:0 -10px 28px rgba(0,0,0,.5)}.tip h3{font-size:17px}#mockframe{margin:0 auto}h1{font-size:29px}}
+.logo{width:30px;height:30px;vertical-align:middle;margin-right:8px}nav b{display:flex;align-items:center}h1 .logo{width:44px;height:44px;margin-right:12px}.fig{display:grid;gap:10px;margin:16px 0}
+footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:var(--mut);font-size:14px}footer p{margin:4px 0}
+</style></head><body>
+<div class="wrap">
+<nav aria-label="Guide"><b><svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><path d="M415.2,383.2 A54,54 0 0 1 377,399 L70,399 A54,54 0 0 1 16,345 L16,118 A54,54 0 0 1 70,64 L377,64 A54,54 0 0 1 431,118 L431,345 A54,54 0 0 1 415.2,383.2" fill="none" stroke="#F97316" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/><path d="M370 337 L370 495 L418 432 L497 432 Z" fill="#e05555" stroke="#e05555" stroke-width="28" stroke-linejoin="round"/></svg>VRect<i>Pro</i></b>
+<a href="#welcome">Overview</a><a href="#start">Quick start</a><a href="#install">Install</a><a href="#license">Activate</a><a href="#first">First shape</a><a href="#panel">The panel</a><a href="#swap">Swap and Swapoly</a><a href="#fit">Create modes</a><a href="#anchor">Anchor grid and nulls</a><a href="#presets">Presets and defaults</a><a href="#settings">Settings</a><a href="#caution">Good to know</a><a href="#trouble">Troubleshooting</a></nav>
+<main>
+<h1 id="welcome"><svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><path d="M415.2,383.2 A54,54 0 0 1 377,399 L70,399 A54,54 0 0 1 16,345 L16,118 A54,54 0 0 1 70,64 L377,64 A54,54 0 0 1 431,118 L431,345 A54,54 0 0 1 415.2,383.2" fill="none" stroke="#F97316" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/><path d="M370 337 L370 495 L418 432 L497 432 Z" fill="#e05555" stroke="#e05555" stroke-width="28" stroke-linejoin="round"/></svg>VRectPro</h1>
+<p class="lead">Create rounded rectangles and polygons in After Effects, and change their size and corners with sliders.</p>
+<p>Make a shape in one click, fit it to a layer or your whole comp, set its anchor point, and save looks as presets. Use Swap and Swapoly to convert shape layers you already have, with all their source properties kept.</p>
+
+<h2 id="start">Quick start</h2>
+<div class="co info"><b class="t">What you need</b>After Effects <b>18.4 or newer</b>, Windows or macOS. The Dark, Light and System panel themes need version 25.</div>
+<ol class="steps"><li>Install the extension (<a href="#install">Install</a>).</li><li>Enter your Gumroad license key (<a href="#license">Activate</a>).</li><li>Open <code>Window &gt; Extensions &gt; VRectPro</code>, open a comp and press <b>Create</b>.</li></ol>
+
+<h2 id="install">Install the extension</h2>
+<p>Your download is <code>VRectPro.zip</code>. Unzip it and you will find <code>com.vertex.vrectpro.zxp</code> and an installation <code>.txt</code> file with the steps. Start with <b>Method A</b>. If your installer refuses the file, use <b>Method B</b>.</p>
+<div class="tabs" role="tablist"><button class="on" data-t="a">A. ZXP installer</button><button data-t="b">B. ZIP (manual)</button></div>
+<div class="tp on" id="a"><ol class="steps">
+<li>Close After Effects.</li>
+<li>Unzip <code>VRectPro.zip</code>. Inside you get <code>com.vertex.vrectpro.zxp</code> and an installation <code>.txt</code> file you can follow too.</li>
+<li>Download and install the free <a href="https://aescripts.com/learn/zxp-installer/" target="_blank" rel="noopener"><b>aescripts + aeplugins ZXP Installer</b></a> (Windows and macOS).</li>
+<li>Drag <code>com.vertex.vrectpro.zxp</code> into the installer window and wait for the success message.</li>
+<li>Open After Effects, then go to <code>Window &gt; Extensions &gt; VRectPro</code>.</li></ol></div>
+<div class="tp" id="b"><ol class="steps">
+<li>Close After Effects.</li>
+<li>Unzip <code>VRectPro.zip</code>. You get <code>com.vertex.vrectpro.zxp</code> and an installation <code>.txt</code> file.</li>
+<li>Rename <code>com.vertex.vrectpro.zxp</code> to <code>com.vertex.vrectpro.zip</code>. If you can’t see <code>.zxp</code>, turn on “file name extensions” first.</li>
+<li>Extract that zip. You get a folder with <code>CSXS</code>, <code>client</code> and other files inside.</li>
+<li>Copy that folder to Adobe’s extensions folder:
+<pre>Windows: C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\
+macOS:   /Library/Application Support/Adobe/CEP/extensions/</pre></li>
+<li>If VRectPro is missing from the Extensions menu, switch on Adobe’s debug mode (<code>CSXS.12</code> for After Effects 2025 and newer, <code>CSXS.11</code> for 2022 to 2024):
+<pre>Windows (CMD):    reg add HKCU\Software\Adobe\CSXS.12 /v PlayerDebugMode /t REG_SZ /d 1 /f
+macOS (Terminal): defaults write com.adobe.CSXS.12 PlayerDebugMode 1</pre></li>
+<li>Restart After Effects.</li></ol></div>
+<div class="co warn"><b class="t">Turn on one After Effects setting</b>Go to <code>Settings &gt; Scripting &amp; Expressions</code> and enable <code>Allow Scripts to Write Files and Access Network</code>. VRectPro needs it to save your presets and defaults.</div>
+<div class="co warn"><b class="t">Saving presets needs a recent After Effects</b>If you see an error when saving a preset or default, update After Effects and try again.</div>
+
+
+<h2 id="license">Activate your license</h2>
+<ol class="steps">
+<li>After you buy, Gumroad shows and emails your <b>license key</b>. Keep that email.</li>
+<li>Open VRectPro in After Effects. The activation screen appears first.</li>
+<li>Paste the key exactly as you received it, with no extra spaces, and press <b>Activate</b>.</li>
+<li>The full panel opens. You won’t need to activate again on that computer.</li></ol>
+<div class="co bad"><b class="t">One key works on two computers</b>Don’t share it. A shared key fills both slots and locks you out.</div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:14px 0"><span style="font-weight:700;color:var(--hi)">Don’t have a license? Grab it now</span><a class="sweep" href="https://vfxvertex.gumroad.com/l/VRectPro" target="_blank" rel="noopener">VRectPro</a></div>
+<div class="co info"><b class="t">Changing computers?</b>Contact support before you reformat or switch, so we can free a slot for you.</div>
+
+
+<h2 id="first">Make your first shape</h2>
+<p>Open a composition first.</p>
+<ol class="steps">
+<li>Pick a preset from the list. <b>Default</b> is a good start.</li>
+<li>Press <b>Create</b>. A new rounded rectangle appears in your comp.</li>
+<li>Select the layer and open Effect Controls. Change <b>Width</b>, <b>Height</b> and <b>Corner Radius</b>.</li>
+<li>Click a square in the 3×3 grid to set the anchor point.</li>
+<li>Press <b>Save preset</b> to keep the look for later.</li></ol>
+
+<h2 id="panel">Click through the panel</h2>
+<p>This is a copy of the real panel. Click or tap any control to read what it does in the card beside it (pinned to the bottom on phones). On a computer, hold <kbd>⇧ Shift</kbd> or <kbd>⌥ Alt/Option</kbd> while clicking a grid square to see what changes. Nothing here touches After Effects.</p>
+<div class="ex">
+<iframe id="mockframe" title="VRectPro panel (interactive copy)" scrolling="no"></iframe>
+<div class="tip" id="tip" aria-live="polite"><div class="k">Pick a control</div><h3>Click anything on the panel</h3><p class="hint">Try the 3×3 grid. Each square behaves differently with <kbd>⇧ Shift</kbd> or <kbd>⌥ Alt/Option</kbd> held.</p></div>
+</div>
+
+
+<h2 id="swap">Swap and Swapoly</h2>
+<p>Turn shape layers you already have into VRectPro shapes. Select one or more layers and press the button.</p>
+<div class="tw"><table><tr><th>Button</th><th>What it does</th></tr>
+<tr><td>Swap</td><td>Converts a rectangle or rounded rectangle into a VRectPro shape.</td></tr>
+<tr><td>Swapoly</td><td>Converts a polygon into a VRectPoly shape. Hold <kbd>⇧ Shift</kbd> to add a Fix Null on each corner.</td></tr></table></div>
+<p>The new shape keeps all properties from the source layer. The original layer is turned off and stays in your comp, right under the new one.</p>
+<p>Layers that can’t be converted are skipped. The message after the button tells you how many.</p>
+<div class="co warn"><b class="t">Use Ctrl/Cmd+Z</b>If you don’t like the result, undo it.</div>
+
+<h2 id="fit">Create modes: Selection, Matte and BG</h2>
+<p>Turn on a mode, then press <b>Create</b>. A mode stays on until you click it again.</p>
+<div class="tw"><table><tr><th>Mode</th><th>What you get</th></tr>
+<tr><td>Selection</td><td>A shape the size of the selected layer, placed under it and linked to it so they move together. Good for a button behind text.</td></tr>
+<tr><td>Matte</td><td>Same as Selection, and the shape also masks the layer. Good for rounded corners on a video or screenshot.</td></tr>
+<tr><td>BG</td><td>A shape the size of your whole comp. Good for a background.</td></tr></table></div>
+
+<h2 id="anchor">Anchor grid and nulls</h2>
+<p>The 3×3 grid sets where the anchor point sits on your shape. The lit square shows the current anchor and changes when you select another layer. It also works on layers that aren’t VRectPro shapes.</p>
+<div class="tw"><table><tr><th>On a grid square</th><th>You get</th></tr>
+<tr><td>Click</td><td>The anchor point moves there.</td></tr>
+<tr><td><kbd>⇧ Shift</kbd> + click</td><td>A Fix Null at that point. Parent another layer to it to keep it attached to that corner.</td></tr>
+<tr><td><kbd>⌥ Alt/Option</kbd> + click</td><td>A Control Null at that point. Move this null to move the shape.</td></tr></table></div>
+
+<h2 id="presets">Presets and defaults</h2>
+<div class="tw"><table><tr><th>Button</th><th>What it does</th></tr>
+<tr><td>Save preset</td><td>Saves the selected shape under a name. It asks before replacing a name you already use.</td></tr>
+<tr><td>Set default</td><td>Makes the selected shape’s look the starting point for new shapes.</td></tr>
+<tr><td>Reset</td><td>Goes back to the built-in default look.</td></tr>
+<tr><td>Library</td><td>Opens the preset manager. Rename, reorder or delete presets, then press Save changes.</td></tr>
+<tr><td>Remove</td><td>Keeps the shape as it is and removes the VRectPro controls.</td></tr></table></div>
+<p>In the preset list, drag a preset to reorder it, and right-click it to rename or delete. Default can’t be moved or deleted.</p>
+
+<h2 id="settings">Settings</h2>
+<p>Open them with the gear icon in the panel header.</p>
+<div class="tw"><table><tr><th>Setting</th><th>What it does</th></tr>
+<tr><td>Theme</td><td>System, Darkest, Dark or Light. All except Darkest need After Effects 25 or newer.</td></tr>
+<tr><td>Accent color</td><td>Changes the highlight color of the panel.</td></tr>
+<tr><td>Preset slots</td><td>How many presets show in the panel at once.</td></tr>
+<tr><td>Control and Fix null color</td><td>The label color given to nulls you create.</td></tr>
+<tr><td>Fix null size</td><td>How big Fix Nulls are, from 10 to 100.</td></tr></table></div>
+
+<h2 id="caution">Good to know</h2>
+<ul>
+<li>To move a VRectPro shape, move its Control Null instead of changing the layer’s Position.</li>
+<li>Set the anchor point with the grid, not by dragging it.</li>
+<li>Remove can’t be undone from the panel. Use it when you’re happy with the shape.</li>
+<li>If Create makes the wrong thing, check whether Selection, Matte or BG is still on.</li>
+<li>Your license key works on two computers. Keep it private.</li></ul>
+
+<h2 id="trouble">Troubleshooting</h2>
+<details><summary>VRectPro isn’t in Window &gt; Extensions</summary><div>Restart After Effects. If you installed with the ZIP method, turn on debug mode (step 5 of Method B) and restart again.</div></details>
+<details><summary>The panel is blank or says “Loading…”</summary><div>Turn on Allow Scripts to Write Files and Access Network in After Effects settings, then close and reopen the panel.</div></details>
+<details><summary>A button does nothing, or I see “Script error”</summary><div>Make sure a comp is open. For Selection, Matte, Swap and Swapoly, make sure the right layer is selected.</div></details>
+<details><summary>Some layers weren’t swapped</summary><div>Layers that can’t be converted are skipped. The message after Swap or Swapoly shows how many.</div></details>
+<details><summary>Presets won’t save</summary><div>Update After Effects, turn on Allow Scripts to Write Files and Access Network, and make sure the name isn’t empty.</div></details>
+<details><summary>My license key says invalid</summary><div>Copy it again from the Gumroad email with no spaces. If it says the limit is reached, two computers already use it. Contact support (<a href="https://x.com/VfxVertex" target="_blank" rel="noopener">@VfxVertex</a>) to free a slot.</div></details>
+<details><summary>Dark, Light and System themes are missing</summary><div>They need After Effects 25 or newer. Older versions use Darkest.</div></details>
+<footer><p><b>Support:</b> message <a href="https://x.com/VfxVertex" target="_blank" rel="noopener">@VfxVertex on X</a>.</p><p>© 2026 Vertex. All rights reserved. VRectPro is a product of Vertex. Adobe and After Effects are trademarks of Adobe Inc.</p></footer>
+</main></div>
+<script type="text/plain" id="mockSrc"><!DOCTYPE html><html><head><meta charset="utf-8"><style>
+/* bolt-cep mounts React into <div id="app"> inside <body>. The original
+   panel relied on html/body/#zc5fl8w each being height:100% in an unbroken
+   chain; #app (and the wrapper this component renders into) need the same
+   so #zc5fl8w still fills the CEP window exactly as before. */
+html, body { height: 100%; margin: 0; }
+
+/* ════════════════════════════════════════════════════
+   Ported verbatim from VRectPro index.html's <style> block.
+   No selector changes needed: the original CSS already
+   targets classes toggled on <body>/<html> (theme-*,
+   shift-held, no-animations, density-*, etc.), and our
+   React code keeps toggling those same classes on
+   document.body / document.documentElement directly,
+   matching the original architecture exactly.
+   ════════════════════════════════════════════════════ */
+
+/* Panel stays hidden until saved UI settings are applied, so it never paints
+   with default theme/accent/layout first and then jumps to the saved one. */
+html.vrp-booting #zc5fl8w { visibility: hidden; }
+
+/* ═══════════════════════════════════════════
+   VRECTPRO — PRECISION INSTRUMENT UI
+   AlignUltra elevation system + frosted tiles
+═══════════════════════════════════════════ */
+
+:root {
+  /* Elevation system — 4 clear tiers */
+  --e0: #0b0b0d;
+  --e1: #111114;
+  --e2: #18181c;
+  --e3: #202025;
+
+  /* Semantic borders */
+  --line:   rgba(255,255,255,.055);
+  --line-m: rgba(255,255,255,.09);
+  --line-h: rgba(255,255,255,.14);
+
+  /* Text scale */
+  --t-hi:  #DDDDE4;
+  --t-mid: #68687e;
+  --t-lo:  #353548;
+
+  /* Accent — tangerine default */
+  --accent:      #F97316;
+  --ar:          249,115,22;
+  --accent-dim:  rgba(249,115,22,.12);
+  --accent-mid:  rgba(249,115,22,.22);
+  --accent-glow: rgba(249,115,22,.35);
+
+  /* Status */
+  --green:  #30D158;
+  --red:    #FF453A;
+  --yellow: #FFD60A;
+
+  /* Shift/Alt modifier hint colors — inherit the control/fix null
+     label color chosen in Settings → Nulls; fall back to accent
+     ("None (default)") so they're never hardcoded. Set from JS
+     in the NULL SETTINGS block whenever a label is picked. */
+  --pin-null-color:    var(--accent);
+  --parent-null-color: var(--accent);
+  /* RGB triplets for modifier colors — used in rgba() the same way --ar is.
+     Kept in sync with the color vars by applyDotStyle() in JS. */
+  --pin-r:    var(--ar);
+  --parent-r: var(--ar);
+
+  /* Radii */
+  --r-xs: 4px;
+  --r-s:  6px;
+  --r-m:  8px;
+  --r-l:  12px;
+  --r-xl: 16px;
+
+  /* Motion */
+  --ease:   cubic-bezier(.25,.1,.25,1);
+  --spring: cubic-bezier(.34,1.56,.44,1);
+  --out:    cubic-bezier(.16,1,.3,1);
+  --t:      .15s;
+  --t-fast: .09s;
+  --t-slow: .22s;
+
+  /* Legacy compat */
+  --r: var(--r-m);
+  --slot-h: 26px;
+  --layer-h: 28px;
+  --row-h: 52px;          /* height of one Create/Swap/Swapoly row = one grid row */
+  --ease-out-expo: cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ── Theme overrides ── */
+body.theme-darkest { --e0:#060608; --e1:#0b0b0d; --e2:#111114; --e3:#161619; }
+body.theme-dark    { --e0:#1a1a1f; --e1:#212127; --e2:#292930; --e3:#313139; }
+body.theme-light   {
+  --e0:#e2e2ea; --e1:#d8d8e2; --e2:#cdcdd8; --e3:#c2c2ce;
+  --t-hi:#111116; --t-mid:#55555f; --t-lo:#9595a2;
+  --line:rgba(0,0,0,.06); --line-m:rgba(0,0,0,.1); --line-h:rgba(0,0,0,.16);
+}
+
+/* ── Reset ── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,.1); border-radius:2px; }
+::-webkit-scrollbar-thumb:hover { background:rgba(255,255,255,.22); }
+::selection { background:var(--accent-dim); }
+
+html, body {
+  height:100%; overflow:hidden;
+  background:var(--e0);
+  color:var(--t-hi);
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size:11px;
+  letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;
+  user-select:none; -webkit-user-select:none;
+  transform:translateZ(0);
+}
+
+/* Noise grain overlay */
+body::before {
+  content:"";
+  position:fixed; inset:0; z-index:9998;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size:180px 180px;
+  opacity:.028;
+  mix-blend-mode:overlay;
+}
+
+/* ── Cursor glow spotlight ── */
+#zbdr31b {
+  position:fixed; inset:0; z-index:0;
+  pointer-events:none;
+  background:radial-gradient(280px circle at 50% 30%, rgba(var(--ar),.06) 0%, transparent 65%);
+  transition:opacity .3s ease;
+  will-change:background;
+}
+
+/* ── DYNAMIC FROSTED TOOLTIP ── */
+#z3zot60 {
+  position: fixed;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(3px) scale(0.95);
+  transition: opacity 0.12s var(--ease), transform 0.14s var(--spring),
+              border-color 0.12s var(--ease), box-shadow 0.12s var(--ease);
+  background: rgba(14, 14, 18, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  /* default border — overridden per-context below */
+  border: 1px solid var(--line-h);
+  border-top-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(var(--ar), 0.12);
+  color: var(--t-hi);
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--r-s);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  will-change: transform, opacity;
+}
+#z3zot60.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+/* Multi-line tooltip separator */
+.v-tip-sep {
+  display: block;
+  height: 1px;
+  margin: 3px -8px;
+  background: var(--line-h);
+  opacity: 0.5;
+  transition: background 0.1s;
+}
+.v-tip-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 0;
+  border-radius: 3px;
+  transition: color 0.1s, opacity 0.1s;
+  color: var(--t-hi);
+  opacity: 1;
+}
+/* Dimmed: a modifier is active but this row isn't the one linked to it */
+.v-tip-row.dim { opacity: 0.28; }
+/* Lit: this row's modifier is currently held */
+.v-tip-row.mod-shift.lit { color: var(--pin-null-color); }
+.v-tip-row.mod-alt.lit   { color: var(--parent-null-color); }
+/* Key badge */
+.v-tip-key {
+  font-size: 7.5px;
+  font-weight: 800;
+  padding: 1px 4px;
+  border-radius: 3px;
+  letter-spacing: .04em;
+  flex-shrink: 0;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  color: inherit;
+  transition: background 0.1s, border-color 0.1s;
+}
+.v-tip-row.mod-shift.lit .v-tip-key { background:color-mix(in srgb, var(--pin-null-color) 15%, transparent); border-color:color-mix(in srgb, var(--pin-null-color) 35%, transparent); }
+.v-tip-row.mod-alt.lit   .v-tip-key { background:color-mix(in srgb, var(--parent-null-color) 12%, transparent); border-color:color-mix(in srgb, var(--parent-null-color) 30%, transparent); }
+/* Tooltip hidden via setting */
+body.hide-tooltips #z3zot60 { display: none !important; }
+/* Toast hidden via setting */
+body.no-toast #zgtl0mq { display: none !important; }
+
+/* ══════════════════════════════════
+   TEXT SCATTER — logo letter placeholders
+   Ghosts are fixed-position overlays; originals just hold space.
+   ══════════════════════════════════ */
+.scatter-letter {
+  display: inline-block;
+  cursor: default;
+}
+
+/* ── outer shell ── */
+#zc5fl8w {
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  background:var(--e0);
+  position:relative; z-index:1;
+  /* Hard minimum: everything (header icon, grid, presets, save drawer) fits at 200px */
+  min-width:200px;
+}
+
+/* Ensure views fill remaining space and scroll */
+#view-settings {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.07) transparent;
+}
+#zeyuezc {
+  flex: 1;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.07) transparent;
+}
+#zeyuezc::-webkit-scrollbar { width: 3px; }
+#zeyuezc::-webkit-scrollbar-thumb { background: rgba(255,255,255,.09); border-radius: 2px; }
+#view-settings::-webkit-scrollbar { width: 3px; }
+#view-settings::-webkit-scrollbar-thumb { background: rgba(255,255,255,.09); border-radius: 2px; }
+
+/* ══════════════════════════════════
+   HEADER
+   ══════════════════════════════════ */
+#z8gm8kr {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 10px;
+  height:34px;
+  background: linear-gradient(180deg, rgba(255,255,255,.04) 0%, transparent 100%), var(--e1);
+  border-bottom:1px solid var(--line);
+  box-shadow: 0 1px 0 var(--line), 0 4px 16px rgba(0,0,0,.3);
+  flex-shrink:0;
+  position:relative; z-index:2;
+}
+.h-left  { display:flex; align-items:center; gap:8px; }
+.h-right { display:flex; align-items:center; gap:6px; position:relative; }
+
+/* Logo */
+.v-logo-wrap a {
+  display:flex; align-items:center; text-decoration:none;
+  font-size:13px; font-weight:900; letter-spacing:-.04em; line-height:1;
+}
+.v-logo-white { color:#fff; text-shadow:0 0 8px rgba(255,255,255,.7),0 0 18px rgba(255,255,255,.35); }
+.v-logo-accent { color:var(--accent); }
+
+/* Key indicator wrapper — overlays both keyhints in exact same position */
+.key-hint-wrapper {
+  display:inline-grid;
+  grid-template-areas:"pill";
+  align-items:center;
+  justify-items:center;
+}
+
+.key-pill {
+  grid-area: pill;
+  border-radius:3px; font-size:7.5px; font-weight:800;
+  padding:1px 5px; letter-spacing:.06em;
+  pointer-events:none;
+  opacity:0; transform:scale(.75) translateY(2px);
+  transition:opacity var(--t-fast) var(--ease), transform var(--t) var(--spring);
+  border:1px solid transparent;
+  display:inline-flex; align-items:center; gap:2px;
+  white-space:nowrap;
+}
+.shift-pill {
+  background:color-mix(in srgb, var(--pin-null-color) 12%, transparent);
+  color:var(--pin-null-color);
+  border-color:color-mix(in srgb, var(--pin-null-color) 32%, transparent);
+}
+.alt-pill {
+  background:color-mix(in srgb, var(--parent-null-color) 12%, transparent);
+  color:var(--parent-null-color);
+  border-color:color-mix(in srgb, var(--parent-null-color) 32%, transparent);
+}
+
+/* Pills always reflect the held modifier globally. If both are pressed, show nothing */
+body.shift-held:not(.alt-held) .shift-pill { opacity:1; transform:scale(1) translateY(0); }
+body.alt-held:not(.shift-held)   .alt-pill   { opacity:1; transform:scale(1) translateY(0); }
+
+/* Icon button */
+.icon-btn {
+  background:transparent; border:none; border-radius:var(--r-s);
+  color:var(--t-lo); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  width:26px; height:26px;
+  transition:background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t) var(--spring);
+}
+.icon-btn:hover  { background:var(--e3); color:var(--t-mid); }
+.icon-btn:active { transform:scale(.84); }
+
+/* ══════════════════════════════════
+   MAIN / SETTINGS VIEW WRAPPERS
+   ══════════════════════════════════ */
+#zeyuezc     { display:flex; flex-direction:column; }
+#view-settings { display:none; flex-direction:column; }
+
+/* ── Scrollable main content ──
+   The panel header is sticky/fixed; everything inside #zeyuezc
+   scrolls as a single block when the panel is resized too small. */
+#zeyuezc {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Inner column: must not collapse below its natural height so
+   scrolling kicks in instead of squashing content. */
+#zpa6r26 {
+  display: flex;
+  flex-direction: column;
+  min-height: min-content;
+  flex: 1;
+}
+
+/* ══════════════════════════════════
+   TOP ZONE — action col + align col
+   ══════════════════════════════════ */
+#zx87mzh {
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);   /* forces a true, pixel-exact 50/50 split */
+  align-items:stretch;
+  gap:6px;
+  padding:7px 7px 0;
+  flex-shrink:0;
+}
+
+/* ── Left column: action buttons — fills ALL space the grid container doesn't use ── */
+#zehq7g0 {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  flex:1 1 0;
+  min-width:44px;
+}
+
+.action-btn {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:0 10px;
+  width:100%;
+  min-width:0;
+  height:var(--row-h);
+  background: linear-gradient(160deg, var(--e2) 0%, color-mix(in srgb, var(--e2) 90%, var(--e1)) 100%);
+  border:none;
+  border-radius:var(--r-m);
+  color:var(--t-mid);
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 0 0 1px var(--line),
+    0 1px 2px rgba(0,0,0,.2);
+  transition:
+    background var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease),
+    box-shadow var(--t-slow) var(--ease),
+    transform var(--t) var(--spring);
+  -webkit-user-select:none; user-select:none;
+  overflow:hidden; position:relative;
+}
+/* ::after handled by upgrade layer */
+.action-btn:hover {
+  background: linear-gradient(160deg, var(--e3) 0%, color-mix(in srgb, var(--e3) 90%, rgba(var(--ar),.3)) 100%);
+  color:var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 0 0 1px rgba(var(--ar),.3),
+    0 4px 12px rgba(var(--ar),.12),
+    0 1px 2px rgba(0,0,0,.2);
+}
+.action-btn:active { transform:scale(.96); }
+.action-btn svg { flex-shrink:0; pointer-events:none; transition:transform var(--t) var(--spring); }
+.action-btn:hover svg { transform:scale(1.08); }
+.action-btn .lbl {
+  flex:1; text-align:left; white-space:nowrap; pointer-events:none;
+  font-size:11px;
+}
+
+/* ── Right column: align GRID CONTAINER ──
+   A framed well that holds the 3×3 anchor cells. Width is derived from the
+   row height so cells stay square; it only shrinks when the panel is very narrow. */
+#z09vp01 {
+  flex: 1 1 0;
+  min-width: 90px;   /* was 96px: at the panel's 200px hard floor each grid column is only
+                         ~90px wide, so 96px forced this box past its column and overflowed
+                         the right-edge padding that Layer/Presets respect. 90px is the true
+                         floor - it can never need to exceed its column again. */
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: var(--r-l);
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,.16) 100%),
+    var(--e1);
+  box-shadow:
+    inset 0 0 0 1px var(--line-m),
+    inset 0 2px 8px rgba(0,0,0,.35),
+    0 1px 0 rgba(255,255,255,.04);
+}
+body.theme-light #z09vp01 {
+  background: var(--e1);
+  box-shadow: inset 0 0 0 1px var(--line-m), inset 0 2px 6px rgba(0,0,0,.08);
+}
+
+.sec-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:4px;
+  height:18px;
+}
+.sec-title {
+  font-size:7.5px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--t-mid);
+  font-weight:800;
+}
+
+/* 3×3 align grid — rows use the same height as the action buttons */
+#zplh277 {
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows:    repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  align-content: stretch;
+}
+.align-btn {
+  display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(160deg, var(--e2) 0%, color-mix(in srgb, var(--e2) 90%, var(--e1)) 100%);
+  border:none;
+  border-radius:var(--r-s);
+  cursor:pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 0 0 1px var(--line),
+    0 1px 2px rgba(0,0,0,.2);
+  transition:background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), box-shadow var(--t-slow) var(--ease), transform var(--t) var(--spring);
+  -webkit-user-select:none; user-select:none;
+  position:relative; overflow:hidden;
+  color:var(--t-mid);
+}
+.align-btn:hover {
+  background: linear-gradient(160deg, var(--e3) 0%, color-mix(in srgb, var(--e3) 90%, rgba(var(--ar),.3)) 100%);
+  color:var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 0 0 1px rgba(var(--ar),.3),
+    0 4px 12px rgba(var(--ar),.12);
+}
+.align-btn:active { transform:scale(.94); }
+.align-btn svg { pointer-events:none; width:calc(18px * var(--align-icon-scale, 1)); height:calc(18px * var(--align-icon-scale, 1)); }
+.align-btn .dot { fill:#2c2c2c; transition:fill .12s; }
+.align-btn .ring { stroke:#262626; fill:none; transition:stroke .12s; }
+/* align-btn.active styles moved to dynamic enhancements section */
+
+/* ══════════════════════════════════
+   SECTIONS
+   ══════════════════════════════════ */
+.sec {
+  padding:5px 7px 0;
+  flex-shrink:0;
+  position:relative;
+}
+
+/* Same grid formula as #zx87mzh above (minmax(0,1fr) minmax(0,1fr), 6px
+   gap, 7px side padding from .sec) so this row's centre seam lands at
+   the exact same x as the one above it — no more approximating with
+   flex + mirrored min-widths. */
+#zb318lj { display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap:6px; }
+.lbtn-group { display:flex; gap:6px; min-width:0; }
+
+.lbtn {
+  flex:1 1 0;
+  min-width:0;
+  display:flex; align-items:center; justify-content:center; gap:5px;
+  height:var(--layer-h);
+  background: linear-gradient(160deg, var(--e2) 0%, color-mix(in srgb, var(--e2) 90%, var(--e1)) 100%);
+  border:none;
+  border-radius:var(--r-m);
+  color:var(--t-mid);
+  font-size:10px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 0 0 1px var(--line),
+    0 1px 2px rgba(0,0,0,.2);
+  transition:background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), box-shadow var(--t-slow) var(--ease), transform var(--t) var(--spring);
+  -webkit-user-select:none; user-select:none;
+  white-space:nowrap;
+  position:relative; overflow:hidden;
+}
+.lbtn:hover {
+  background: linear-gradient(160deg, var(--e3) 0%, color-mix(in srgb, var(--e3) 90%, rgba(var(--ar),.3)) 100%);
+  color:var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 0 0 1px rgba(var(--ar),.3),
+    0 4px 12px rgba(var(--ar),.12);
+}
+.lbtn:active { transform:scale(.96); }
+.lbtn svg { pointer-events:none; flex-shrink:0; transition:transform var(--t) var(--spring); }
+.lbtn:hover svg { transform:scale(1.1); }
+.lbtn .lbtn-lbl { pointer-events:none; overflow:hidden; text-overflow:ellipsis; }
+
+/* ══════════════════════════════════
+   PRESET LIST
+   ══════════════════════════════════ */
+#zjd4d03 {
+  flex:1; min-height:60px;
+  display:flex; flex-direction:column;
+  padding:5px 7px 0;
+  overflow:hidden;
+}
+#z7kxhii {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:3px; height:15px;
+}
+#z6x6zrj {
+  flex:1; min-height:0;
+  overflow-y:auto;
+  display:flex; flex-direction:column; gap:3px;
+  padding-bottom:2px;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.08) transparent;
+}
+
+/* ── Modern glassmorphic preset cards ── */
+.preset-slot {
+  display:flex; align-items:center;
+  height:var(--slot-h); flex-shrink:0;
+  background: rgba(255,255,255,.028);
+  border:none;
+  border-radius:var(--r-m);
+  cursor:pointer; overflow:hidden;
+  position:relative;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.055),
+    inset 0 0 0 1px rgba(255,255,255,.04),
+    0 1px 3px rgba(0,0,0,.18);
+  transition:
+    background .14s var(--ease),
+    box-shadow .18s var(--ease),
+    transform .15s var(--spring);
+  -webkit-user-select:none; user-select:none;
+}
+
+/* left glow bar */
+.preset-slot::before {
+  content:'';
+  position:absolute;
+  left:0; top:20%; bottom:20%;
+  width:2px;
+  border-radius:0 1px 1px 0;
+  background:var(--accent);
+  opacity:0;
+  transform:scaleY(0) scaleX(.5);
+  transform-origin:top center;
+  box-shadow:0 0 6px rgba(var(--ar),.6);
+}
+
+/* shimmer fill on hover */
+.preset-slot::after {
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(90deg,
+    rgba(var(--ar),.0) 0%,
+    rgba(var(--ar),.06) 50%,
+    rgba(var(--ar),.0) 100%);
+  background-size:200% 100%;
+  background-position:-100% 0;
+  opacity:0;
+  transition:opacity .15s var(--ease), background-position .4s var(--out);
+  pointer-events:none;
+}
+
+.preset-slot:hover {
+  background: rgba(255,255,255,.048);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 0 0 1px rgba(var(--ar),.18),
+    0 2px 8px rgba(0,0,0,.2),
+    0 0 0 0 rgba(var(--ar),.0);
+  transform: translateX(1px);
+}
+.preset-slot:hover::after {
+  opacity:1;
+  background-position:100% 0;
+}
+.preset-slot:active {
+  transform:translateX(1px) scale(.99);
+}
+
+.preset-slot.active {
+  background: rgba(var(--ar),.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 0 0 1px rgba(var(--ar),.28),
+    0 0 12px rgba(var(--ar),.08);
+  transform:translateX(2px);
+}
+.preset-slot.active::before {
+  top:15%; bottom:15%;
+}
+
+/* hide old indicator — replaced by ::before */
+.preset-indicator {
+  display:none;
+}
+
+.preset-name {
+  flex:1; padding:0 8px 0 10px;
+  font-size:10.5px; color:var(--t-mid);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  transition:color .12s;
+  font-weight:500;
+  letter-spacing:-.01em;
+}
+.preset-slot:hover .preset-name,
+.preset-slot.active .preset-name { color:var(--t-hi); }
+.preset-slot-empty .preset-name { color:var(--t-lo); font-style:italic; font-weight:400; }
+.preset-slot-empty:hover .preset-name { color:var(--t-mid); }
+
+.preset-idx {
+  font-size:7px; color:var(--t-lo);
+  padding-right:8px; flex-shrink:0;
+  font-variant-numeric:tabular-nums;
+  font-weight:700;
+  letter-spacing:.04em;
+  opacity:.5;
+  transition:opacity .12s;
+}
+.preset-slot:hover .preset-idx { opacity:.8; }
+.preset-slot.active .preset-idx { color:var(--accent); opacity:.6; }
+
+/* ══════════════════════════════════
+   FOOTER
+   ══════════════════════════════════ */
+#zoh6ov0 {
+  display:flex; align-items:center;
+  gap:5px;
+  padding:5px 7px 6px;
+  flex-shrink:0;
+  border-top:1px solid var(--line);
+  margin-top:5px;
+  background:linear-gradient(0deg, rgba(0,0,0,.15) 0%, transparent 100%);
+}
+#zupvay1 {
+  flex:1; font-size:9px; color:var(--t-lo);
+  transition:color .2s;
+}
+#zupvay1.ok  { color:var(--green); }
+#zupvay1.err { color:var(--red); }
+
+/* ══════════════════════════════════════════
+   TOAST NOTIFICATION
+══════════════════════════════════════════ */
+#zgtl0mq {
+  position:fixed; bottom:8px; left:8px; right:8px; z-index:9999;
+  display:flex; align-items:flex-start; gap:7px;
+  padding:8px 10px; border-radius:var(--r-xl);
+  background:rgba(32,32,38,.98);
+  border:1px solid var(--line-h);
+  backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+  box-shadow:0 8px 32px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.06);
+  font-size:10.5px; line-height:1.45;
+  opacity:0; transform:translateY(10px) scale(.96); pointer-events:none;
+  transition:opacity .18s var(--out), transform .22s var(--spring);
+}
+#zgtl0mq.show { opacity:1; transform:none; pointer-events:auto; }
+#zgtl0mq.ok   { border-color:rgba(48,209,88,.55); box-shadow:0 8px 28px rgba(0,0,0,.6), 0 0 0 1px rgba(48,209,88,.28), inset 0 1px 0 rgba(255,255,255,.04); }
+#zgtl0mq.err  { border-color:rgba(255,69,58,.55); box-shadow:0 8px 28px rgba(0,0,0,.6), 0 0 0 1px rgba(255,69,58,.28), inset 0 1px 0 rgba(255,255,255,.04); }
+#zgtl0mq.warn { border-color:rgba(255,214,10,.55); box-shadow:0 8px 28px rgba(0,0,0,.6), 0 0 0 1px rgba(255,214,10,.28), inset 0 1px 0 rgba(255,255,255,.04); }
+#zi54n7g  { font-size:12px; line-height:1.4; flex-shrink:0; color:var(--t-hi); }
+#zgtl0mq.ok   #zi54n7g { color:var(--green); }
+#zgtl0mq.err  #zi54n7g { color:var(--red); }
+#zgtl0mq.warn #zi54n7g { color:var(--yellow); }
+#zuhg081  { flex:1; color:var(--t-hi); }
+#zbwu736    { background:none; border:none; color:var(--t-mid); opacity:.4; cursor:pointer; font-size:12px; padding:0 2px; border-radius:3px; transition:opacity var(--t-fast) var(--ease); }
+#zbwu736:hover { opacity:1; }
+
+#zcskrz0 {
+  width:26px; height:26px;
+  display:flex; align-items:center; justify-content:center;
+  background:transparent; border:none;
+  color:var(--t-lo); cursor:pointer;
+  border-radius:var(--r-s);
+  transition:
+    background .15s var(--ease),
+    color .15s var(--ease),
+    transform .45s var(--spring);
+  -webkit-user-select:none; user-select:none;
+}
+#zcskrz0:hover { background:var(--e3); color:var(--t-mid); }
+/* The classic dev-favorite: gear spins a full turn on hover (skipped once the panel is open, since .spin already owns the rotation then) */
+#zcskrz0:hover:not(.spin) svg {
+  animation: gearHoverSpin .6s cubic-bezier(.65,0,.35,1);
+}
+@keyframes gearHoverSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(180deg); }
+}
+/* Rotates to 90° when settings is open — springs back on close */
+#zcskrz0.spin {
+  transform: rotate(90deg);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+#zcskrz0 svg { pointer-events:none; transform-origin: 7px 6.5px; }
+
+/* ══════════════════════════════════
+   SETTINGS VIEW — new-panel style
+   ══════════════════════════════════ */
+#settings-topbar {
+  display:flex; align-items:center;
+  padding:8px 10px 7px;
+  gap:6px;
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
+  background:linear-gradient(180deg, rgba(255,255,255,.04) 0%, transparent 100%), var(--e1);
+  box-shadow:0 1px 0 var(--line), 0 4px 16px rgba(0,0,0,.3);
+}
+#btn-back {
+  width:24px; height:24px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--e2); border:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), inset 0 0 0 1px var(--line);
+  border-radius:var(--r-s); color:var(--t-mid); cursor:pointer;
+  transition:background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t) var(--spring);
+  -webkit-user-select:none; user-select:none;
+}
+#btn-back:hover  { background:var(--e3); color:var(--t-hi); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), inset 0 0 0 1px var(--line-m); }
+#btn-back:active { transform:scale(.88); }
+#btn-back svg { pointer-events:none; }
+#settings-title  { font-size:12px; color:var(--t-hi); font-weight:800; flex:1; letter-spacing:-.04em; }
+#settings-title span { color:var(--accent); }
+#settings-version { font-size:8.5px; color:var(--t-lo); }
+
+/* ── Tabs ── */
+#settings-tabs {
+  display:flex; gap:1px;
+  padding:6px 8px 0;
+  flex-shrink:0;
+  border-bottom:1px solid var(--line);
+  background:var(--e1);
+  overflow-x:auto;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+#settings-tabs::-webkit-scrollbar { display:none; }
+.stab {
+  flex:0 0 auto; background:none; border:none; cursor:pointer;
+  padding:5px 7px 8px; font-size:7.5px; font-weight:700;
+  color:var(--t-lo); letter-spacing:.04em; text-transform:uppercase;
+  border-radius:var(--r-s) var(--r-s) 0 0;
+  transition:color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+  position:relative; white-space:nowrap;
+}
+.stab::after {
+  content:""; position:absolute;
+  bottom:0; left:4px; right:4px; height:2px;
+  border-radius:1px 1px 0 0;
+  background:var(--accent);
+  opacity:0;
+  transition:opacity var(--t-fast) var(--ease);
+}
+.stab.active { color:var(--t-hi); }
+.stab.active::after { opacity:1; }
+.stab:hover:not(.active) { color:var(--t-mid); }
+
+#settings-body {
+  flex:1; min-height:0; overflow-y:auto; overflow-x:hidden;
+  scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.06) transparent;
+}
+#settings-body::-webkit-scrollbar { width:2px; }
+#settings-body::-webkit-scrollbar-thumb { background:rgba(255,255,255,.08); border-radius:1px; }
+
+/* Tab panes */
+.tab-pane { display:none; padding:10px 8px 16px; flex-direction:column; gap:6px; }
+.tab-pane.active { display:flex; }
+
+/* Settings groups */
+.sg {
+  background:var(--e2);
+  border-radius:var(--r-m);
+  box-shadow:inset 0 0 0 1px var(--line), inset 0 1px 0 rgba(255,255,255,.04);
+  overflow:hidden;
+}
+.sg-title {
+  font-size:6px; font-weight:800; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--t-lo); padding:6px 9px 4px; display:block;
+}
+
+.sr {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:8px; padding:0 9px; min-height:30px; cursor:pointer;
+  border-top:1px solid var(--line);
+  transition:background var(--t-fast) var(--ease);
+}
+.sr:first-of-type { border-top:none; }
+.sr:hover { background:rgba(255,255,255,.022); }
+.sr-l { font-size:9.5px; color:var(--t-hi); flex:1; line-height:1.3; }
+.sr-sub { display:block; font-size:7.5px; color:var(--t-lo); margin-top:1px; }
+
+/* ── Toggle (AlignUltra native style) ── */
+.tog { position:relative; width:28px; height:16px; flex-shrink:0; cursor:pointer; display:inline-block; }
+.tog input { position:absolute; opacity:0; width:0; height:0; }
+.tog-t {
+  position:absolute; inset:0;
+  background:rgba(120,120,128,.22); border-radius:8px;
+  transition:background .18s var(--ease);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);
+}
+.tog-k {
+  position:absolute; top:3px; left:3px;
+  width:10px; height:10px; border-radius:50%;
+  background:#fff; pointer-events:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.4);
+  transition:transform .18s var(--spring), background .18s;
+}
+.tog input:checked ~ .tog-t { background:var(--accent); box-shadow:0 0 0 1px rgba(var(--ar),.25); }
+.tog input:checked ~ .tog-k { transform:translateX(12px); }
+
+/* ── Accent swatches ── */
+.swatch-wrap { padding:6px 9px 7px; border-top:1px solid var(--line); }
+.swatch-row { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:7px; }
+.sw-dot {
+  width:18px; height:18px; border-radius:50%; border:none; cursor:pointer;
+  flex-shrink:0;
+  box-shadow:inset 0 0 0 2px rgba(0,0,0,.25);
+  transition:transform var(--t) var(--spring), box-shadow var(--t) var(--ease);
+}
+.sw-dot:hover { transform:scale(1.2); }
+.sw-dot.active { box-shadow:0 0 0 2px var(--e2), 0 0 0 3.5px currentColor, 0 0 12px currentColor; }
+
+.custom-row {
+  display:flex; align-items:center; gap:6px;
+  font-size:9px; color:var(--t-mid);
+}
+#cPicker {
+  width:20px; height:20px; border-radius:4px;
+  border:none; cursor:pointer;
+  padding:0; background:none;
+  box-shadow:inset 0 0 0 1px var(--line-h);
+}
+#cHex {
+  background:var(--e1); border:none;
+  box-shadow:inset 0 0 0 1px var(--line-m);
+  border-radius:var(--r-xs); color:var(--t-hi);
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  font-size:9px; padding:2px 5px; width:60px;
+  transition:box-shadow var(--t-fast) var(--ease);
+}
+#cHex:focus { outline:none; box-shadow:inset 0 0 0 1.5px var(--accent), 0 0 0 2px var(--accent-dim); }
+
+/* ── Seg / radio-like buttons ── */
+.seg {
+  display:flex; gap:2px; flex-shrink:0;
+}
+.seg-b {
+  flex:1; height:22px; font-size:8px; font-weight:700;
+  color:var(--t-lo); background:var(--e3); border:none;
+  border-radius:var(--r-xs); cursor:pointer; padding:0 8px;
+  box-shadow:inset 0 0 0 1px var(--line);
+  transition:background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+  -webkit-user-select:none; user-select:none; white-space:nowrap;
+}
+.seg-b:hover { color:var(--t-mid); }
+.seg-b.on { background:var(--accent-dim); color:var(--accent); box-shadow:inset 0 1px 0 rgba(255,255,255,.06), inset 0 0 0 1px rgba(var(--ar),.3); }
+
+/* ── Sliders ── */
+input[type=range] {
+  -webkit-appearance:none; appearance:none;
+  height:3px; border-radius:2px;
+  background:var(--e3);
+  box-shadow:inset 0 0 0 1px var(--line);
+  outline:none; cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance:none;
+  width:13px; height:13px; border-radius:50%;
+  background:#fff;
+  box-shadow:0 1px 5px rgba(0,0,0,.6), 0 0 0 .5px rgba(0,0,0,.15);
+  transition:box-shadow var(--t-slow) var(--ease), transform var(--t) var(--spring);
+}
+input[type=range]:hover::-webkit-slider-thumb { box-shadow:0 1px 5px rgba(0,0,0,.6), 0 0 0 4px rgba(var(--ar),.2); transform:scale(1.1); }
+.vl { font-size:9px; color:var(--t-mid); min-width:20px; text-align:right; font-variant-numeric:tabular-nums; }
+
+/* ── About / info table ── */
+.info-table { overflow:hidden; }
+.info-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:5px 9px; font-size:9.5px;
+  border-top:1px solid var(--line);
+  gap:6px;
+}
+.info-row:first-child { border-top:none; }
+.info-k { color:var(--t-mid); flex-shrink:0; }
+.info-v { color:var(--t-hi); font-weight:600; text-align:right; }
+.badge {
+  display:inline-flex; align-items:center; gap:3px;
+  font-size:7px; font-weight:800; padding:2px 6px;
+  border-radius:var(--r-xs); background:rgba(48,209,88,.1); color:var(--green);
+  letter-spacing:.04em; box-shadow:inset 0 0 0 1px rgba(48,209,88,.2);
+}
+.badge::before { content:""; width:4px; height:4px; border-radius:50%; background:var(--green); display:block; }
+
+/* social — horizontal compact cards */
+.social-list {
+  display:flex; gap:4px; padding:6px 9px 7px;
+  border-top:1px solid var(--line);
+}
+.social-link {
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;
+  padding:7px 4px; border-radius:var(--r-s);
+  text-decoration:none; color:var(--t-mid);
+  font-size:7.5px; font-weight:700;
+  background:var(--e3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 0 1px var(--line);
+  transition:background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.social-link:hover { color:var(--t-hi); box-shadow:inset 0 1px 0 rgba(255,255,255,.07), inset 0 0 0 1px var(--line-m); }
+.social-icon {
+  width:20px; height:20px; border-radius:5px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+
+.about-info-cols { display:flex; gap:0; border-top:1px solid var(--line); }
+.about-col { flex:1; border-right:1px solid var(--line); }
+.about-col:last-child { border-right:none; }
+.about-col-title {
+  font-size:6px; font-weight:800; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--t-lo); padding:5px 9px 2px; display:block;
+}
+
+.ps-copyright { font-size:8px; color:var(--t-lo); text-align:center; padding:8px 8px 6px; }
+.ps-copyright strong { color:var(--accent); }
+
+/* ══════════════════════════════════
+   ICON-ONLY / DENSITY / VISIBILITY
+   ══════════════════════════════════ */
+body.icon-only .action-btn { justify-content:center; padding:0; }
+body.icon-only .action-btn .lbl { display:none; }
+body.icon-only .lbtn .lbtn-lbl { display:none; }
+body.icon-only .lbtn { justify-content:center; padding:0; }
+
+/* ── Auto-collapse: hide button text when panel is too narrow ──
+   Triggered by ResizeObserver adding body.compact-labels.
+   Below ~140px panel width the action col can't fit text + icon,
+   so we hide the label and centre the icon — same result as icon-only
+   but driven by panel width, not a user toggle. */
+body.compact-labels .action-btn .lbl,
+body.compact-actions .action-btn .lbl  { display:none; }
+body.compact-labels .action-btn,
+body.compact-actions .action-btn        { justify-content:center; padding:0; gap:0; }
+body.compact-labels .lbtn .lbtn-lbl,
+body.compact-lbtn .lbtn .lbtn-lbl       { display:none; }
+body.compact-labels .lbtn,
+body.compact-lbtn .lbtn                 { justify-content:center; padding:0; gap:0; }
+
+body.density-compact { --slot-h:20px; --layer-h:22px; --row-h:44px; }
+body.density-normal  { --slot-h:26px; --layer-h:28px; --row-h:52px; }
+body.density-cozy    { --slot-h:32px; --layer-h:34px; --row-h:62px; }
+
+body.no-sec-labels .sec-title   { display:none; }
+body.no-sec-labels .sec-head    { margin-bottom:0; height:auto; }
+/* #z7kxhii is its own id-based rule (see #z7kxhii below), not class .sec-head,
+   so the reset above never reached it: its "Presets" label would vanish but the row's
+   15px height + 3px margin stayed reserved, leaving a dead gap above the preset list. */
+body.no-sec-labels #z7kxhii { margin-bottom:0; height:auto; }
+body.no-preset-idx .preset-idx  { display:none; }
+
+/* ── Spatial page transitions (slide left/right) ── */
+@keyframes slideInFromRight {
+  from { opacity:0; transform:translateX(18px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+@keyframes slideInFromLeft {
+  from { opacity:0; transform:translateX(-18px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+@keyframes slideOutToLeft {
+  from { opacity:1; transform:translateX(0); }
+  to   { opacity:0; transform:translateX(-14px); }
+}
+
+#zeyuezc, #view-settings {
+  will-change: transform, opacity;
+}
+#view-settings[style*="flex"] {
+  animation: slideInFromRight .22s var(--out) both;
+}
+/* main-exit class triggers the slide-out before hiding */
+#zeyuezc.exiting {
+  animation: slideOutToLeft .16s var(--out) both;
+  pointer-events: none;
+}
+/* settings-exit on back */
+#view-settings.exiting {
+  animation: slideInFromLeft .16s var(--out) reverse both;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition-duration:.01ms !important; } }
+
+/* ── Theme cards (Appearance tab) ── */
+.theme-grid {
+  display:flex; gap:5px; padding:6px 9px 7px; border-top:1px solid var(--line);
+  flex-wrap:wrap;
+}
+.theme-card {
+  flex:1; min-width:40px;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  cursor:pointer; border-radius:var(--r-s);
+  padding:4px 4px 5px;
+  border:1px solid var(--line);
+  background:var(--e3);
+  transition:border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+  -webkit-user-select:none; user-select:none;
+}
+.theme-card:hover { border-color:var(--line-m); }
+.theme-card.active {
+  border-color:rgba(var(--ar),.5);
+  box-shadow:0 0 0 1px rgba(var(--ar),.25), 0 0 8px rgba(var(--ar),.12);
+}
+.tc-bg {
+  width:100%; height:22px;
+  border-radius:3px;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.2);
+}
+.tc-label {
+  font-size:7.5px; font-weight:700; color:var(--t-lo); letter-spacing:.04em;
+  transition:color var(--t-fast) var(--ease);
+}
+.theme-card.active .tc-label { color:var(--accent); }
+
+/* ══════════════════════════════════
+   IN-PANEL INPUT DRAWER
+   (save preset & rename preset)
+   ══════════════════════════════════ */
+#preset-input-drawer {
+  position:fixed;
+  left:0; right:0; bottom:0;
+  z-index:10001;
+  background:var(--e2);
+  border-top:1px solid var(--line-h);
+  padding:8px 10px 10px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  box-shadow:0 -6px 24px rgba(0,0,0,.5);
+  animation:drawerSlideUp .15s var(--out);
+  min-width:0;                        /* honour parent min-width:200px */
+  box-sizing:border-box;
+}
+@keyframes drawerSlideUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:none; }
+}
+.drawer-label {
+  font-size:9px;
+  font-weight:700;
+  color:var(--t-lo);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.drawer-row {
+  display:flex;
+  gap:5px;
+  align-items:center;
+  min-width:0;
+}
+.drawer-input {
+  flex:1;
+  height:26px;
+  background:var(--e3);
+  border:1px solid var(--line-m);
+  border-radius:var(--r-s);
+  color:var(--t-hi);
+  font-family:inherit;
+  font-size:11px;
+  padding:0 8px;
+  outline:none;
+  box-sizing:border-box;
+  transition:border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.drawer-input:focus {
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px var(--accent-dim);
+}
+.drawer-input.err {
+  border-color:var(--red);
+  box-shadow:0 0 0 2px rgba(255,69,58,.15);
+}
+.drawer-btn-save {
+  height:28px;
+  padding:0 12px;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:var(--r-s);
+  font-size:10px;
+  font-weight:700;
+  cursor:pointer;
+  white-space:nowrap;
+  flex-shrink:0;                     /* never compress — input shrinks instead */
+  min-width:max-content;
+  transition:opacity var(--t-fast) var(--ease), transform var(--t) var(--spring);
+}
+.drawer-btn-save:hover  { opacity:.88; }
+.drawer-btn-save:active { transform:scale(.94); }
+.drawer-btn-cancel {
+  height:26px;
+  width:26px;
+  background:var(--e3);
+  color:var(--t-lo);
+  border:1px solid var(--line-m);
+  border-radius:var(--r-s);
+  font-size:13px;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.drawer-btn-cancel:hover  { color:var(--t-mid); }
+.drawer-btn-cancel:active { transform:scale(.88); }
+.drawer-confirm-row {
+  display:none;
+  align-items:center;
+  gap:6px;
+  font-size:9.5px;
+  color:var(--t-lo);
+}
+.drawer-confirm-row.visible { display:flex; }
+.drawer-confirm-msg { flex:1; }
+.drawer-confirm-yes {
+  font-size:9px; font-weight:700;
+  padding:2px 9px; cursor:pointer;
+  border-radius:var(--r-xs);
+  background:rgba(255,69,58,.18);
+  color:var(--red);
+  border:1px solid rgba(255,69,58,.3);
+  transition:background var(--t-fast) var(--ease);
+}
+.drawer-confirm-yes:hover { background:rgba(255,69,58,.28); }
+.drawer-confirm-no {
+  font-size:9px; font-weight:700;
+  padding:2px 9px; cursor:pointer;
+  border-radius:var(--r-xs);
+  background:var(--e3);
+  color:var(--t-mid);
+  border:1px solid var(--line-m);
+  transition:background var(--t-fast) var(--ease);
+}
+.drawer-confirm-no:hover { background:var(--e2); }
+
+/* ══════════════════════════════════
+   ✦ DYNAMIC / FLUID UI ENHANCEMENTS
+   Inspired by magicui.design + reactbits.dev
+   ══════════════════════════════════ */
+
+/* ── Shimmer border keyframe ── */
+@keyframes shimmer-border {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--ar), 0); }
+  50%       { box-shadow: 0 0 12px 2px rgba(var(--ar), .22); }
+}
+@keyframes float-in {
+  from { opacity:0; transform:translateY(5px) scale(.97); }
+  to   { opacity:1; transform:none; }
+}
+@keyframes logo-shimmer {
+  0%   { background-position: -100% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes border-spin {
+  0%   { --border-angle: 0deg; }
+  100% { --border-angle: 360deg; }
+}
+
+/* ── Header entrance ── */
+#z8gm8kr {
+  animation: float-in .28s var(--out) both;
+}
+
+/* ── Logo shimmer effect ── */
+.v-logo-wrap a {
+  position: relative;
+}
+.v-logo-white {
+  background: linear-gradient(
+    90deg,
+    #DDDDE4 0%,
+    #fff 40%,
+    rgba(255,255,255,.9) 50%,
+    #fff 60%,
+    #DDDDE4 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: logo-shimmer 3.5s linear infinite;
+}
+.v-logo-accent {
+  position: relative;
+}
+.v-logo-accent::after {
+  content: '';
+  position: absolute;
+  inset: -2px -3px;
+  background: radial-gradient(ellipse at center, rgba(var(--ar),.25) 0%, transparent 70%);
+  border-radius: 3px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s var(--ease);
+}
+.v-logo-wrap:hover .v-logo-accent::after { opacity: 1; }
+/* Suppress hover glow while letters are scattered — nothing there to glow around */
+.v-logo-wrap.scattering .v-logo-accent::after { opacity: 0 !important; }
+
+/* ══════════════════════════════════
+   ✦ ACTION BUTTONS — researched best patterns
+   • Create: diagonal glare + border bloom + icon lift
+   • Swap:   fill-slide-up + icon spin
+   ══════════════════════════════════ */
+
+.action-btn {
+  will-change: transform, box-shadow;
+  /* remove old --mx/--my magnetic vars */
+  transform-style: flat;
+}
+
+
+
+
+
+/* ── Lift + border bloom on hover ── */
+.action-btn:hover {
+  background: linear-gradient(160deg,
+    var(--e3) 0%,
+    color-mix(in srgb, var(--e3) 88%, rgba(var(--ar),.4)) 100%);
+  color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.1),
+    inset 0 0 0 1px rgba(var(--ar),.32),
+    0 6px 18px rgba(var(--ar),.14),
+    0 2px 6px rgba(0,0,0,.25);
+}
+.action-btn:active {
+  transform: translateY(0) scale(.97);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 0 0 1px rgba(var(--ar),.2),
+    0 1px 3px rgba(0,0,0,.2);
+  transition-duration: .08s;
+}
+
+/* ── Icon: lift on Create, rotate on Swap ── */
+.action-btn svg {
+  position: relative; z-index: 3;
+  transition:
+    transform .25s var(--spring),
+    filter .2s var(--ease);
+}
+.action-btn:hover svg {
+  filter: drop-shadow(0 0 4px rgba(var(--ar), .5));
+}
+
+/* Create button hover handled in the Create animation block below */
+/* Swap / Swapoly — orbit swap.
+   The two shapes travel half a turn around the icon centre and land in
+   each other's spot; the arc-arrows ride the same orbit so they always
+   chase the shape they belong to. Each shape counter-rotates about its
+   own centre so it stays upright (polygons never flip upside-down).
+   Nothing ever leaves the icon's circle, so nothing gets clipped. */
+#zwe6oan svg,
+#z9c7vk1 svg { overflow: visible; }
+.swap-orbit {
+  transform-box: view-box;
+  transform-origin: 256px 256px;
+  transition: transform .55s cubic-bezier(.65, 0, .3, 1);
+}
+.swap-shape {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition: transform .55s cubic-bezier(.65, 0, .3, 1);
+}
+#zwe6oan:hover .swap-orbit,
+#z9c7vk1:hover .swap-orbit { transform: rotate(180deg); }
+#zwe6oan:hover .swap-shape,
+#z9c7vk1:hover .swap-shape { transform: rotate(-180deg); }
+
+/* Label: slide up very slightly */
+.action-btn .lbl {
+  position: relative; z-index: 3;
+  transition: transform .22s var(--out), color .12s var(--ease);
+}
+.action-btn:hover .lbl {
+  transform: translateY(-1px);
+}
+
+/* ── Align buttons: dot-glow hover ── */
+.align-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle background wash on hover */
+.align-btn:hover {
+  background: linear-gradient(160deg, var(--e3) 0%, color-mix(in srgb, var(--e3) 85%, rgba(var(--ar),.4)) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 0 0 1px rgba(var(--ar),.22),
+    0 0 10px rgba(var(--ar),.08);
+}
+
+/* The anchor indicator dot: glow up on hover */
+.align-btn .dot {
+  fill: #2c2c2c;
+  transition: fill .14s var(--ease), filter .14s var(--ease), r .14s var(--spring);
+}
+.align-btn .ring {
+  stroke: #262626;
+  fill: none;
+  transition: stroke .14s var(--ease), filter .14s var(--ease);
+}
+
+/* On hover — light up the anchor dot with accent glow */
+.align-btn:hover .dot {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 3px rgba(var(--ar), .8)) drop-shadow(0 0 6px rgba(var(--ar), .4));
+}
+.align-btn:hover .ring {
+  stroke: rgba(var(--ar), .35);
+}
+
+/* Active state */
+.align-btn.active {
+  background: var(--accent-dim);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 0 0 1px rgba(var(--ar),.3),
+    0 0 12px rgba(var(--ar),.1);
+}
+.align-btn.active .dot {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 4px rgba(var(--ar), .9)) drop-shadow(0 0 8px rgba(var(--ar), .5));
+}
+.align-btn.active .ring { stroke: var(--accent); }
+
+/* ── Modifier "armed" light: same visual as normal hover but using the
+   held modifier's color instead of --accent. Applied via JS
+   (mod-lit-shift / mod-lit-alt) to whichever align button is under the
+   cursor while that modifier is held. ── */
+
+/* Shift — mirrors .align-btn:hover with --pin-null-color / --pin-r */
+.align-btn.mod-lit-shift {
+  background: linear-gradient(160deg, var(--e3) 0%, color-mix(in srgb, var(--e3) 85%, rgba(var(--pin-r),.4)) 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 0 0 1px rgba(var(--pin-r),.22),
+    0 0 10px rgba(var(--pin-r),.08) !important;
+}
+.align-btn.mod-lit-shift .dot {
+  fill: var(--pin-null-color);
+  filter: drop-shadow(0 0 3px rgba(var(--pin-r), .8)) drop-shadow(0 0 6px rgba(var(--pin-r), .4));
+}
+.align-btn.mod-lit-shift .ring { stroke: rgba(var(--pin-r), .35); }
+
+/* Alt — mirrors .align-btn:hover with --parent-null-color / --parent-r */
+.align-btn.mod-lit-alt {
+  background: linear-gradient(160deg, var(--e3) 0%, color-mix(in srgb, var(--e3) 85%, rgba(var(--parent-r),.4)) 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 0 0 1px rgba(var(--parent-r),.22),
+    0 0 10px rgba(var(--parent-r),.08) !important;
+}
+.align-btn.mod-lit-alt .dot {
+  fill: var(--parent-null-color);
+  filter: drop-shadow(0 0 3px rgba(var(--parent-r), .8)) drop-shadow(0 0 6px rgba(var(--parent-r), .4));
+}
+.align-btn.mod-lit-alt .ring { stroke: rgba(var(--parent-r), .35); }
+
+/* lbtn / action-btn just need a color swap */
+.lbtn.mod-lit-shift, .action-btn.mod-lit-shift { color: var(--pin-null-color) !important; }
+.lbtn.mod-lit-alt,   .action-btn.mod-lit-alt   { color: var(--parent-null-color) !important; }
+.mod-lit-shift {
+  box-shadow:
+    inset 0 0 0 1px var(--pin-null-color),
+    0 0 10px color-mix(in srgb, var(--pin-null-color) 45%, transparent) !important;
+}
+.mod-lit-alt {
+  box-shadow:
+    inset 0 0 0 1px var(--parent-null-color),
+    0 0 10px color-mix(in srgb, var(--parent-null-color) 45%, transparent) !important;
+}
+
+/* ── Preset slots: entrance animation ──
+   Two distinct cases, so saving a preset no longer replays the whole
+   list's entrance (which used to look like slots getting reshuffled):
+     .preset-slot-boot — first panel load only, staggered slide-in
+     .preset-slot-new  — a preset just saved, pops in + soft accent glow
+   Slots with neither class (already-shown, unchanged) get no animation. */
+#z6x6zrj .preset-slot-boot {
+  animation: preset-slide-in .22s var(--out) both;
+}
+@keyframes preset-slide-in {
+  from { opacity:0; transform:translateX(-4px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+#z6x6zrj .preset-slot-boot:nth-child(1)  { animation-delay: .03s; }
+#z6x6zrj .preset-slot-boot:nth-child(2)  { animation-delay: .06s; }
+#z6x6zrj .preset-slot-boot:nth-child(3)  { animation-delay: .09s; }
+#z6x6zrj .preset-slot-boot:nth-child(4)  { animation-delay: .12s; }
+#z6x6zrj .preset-slot-boot:nth-child(5)  { animation-delay: .15s; }
+#z6x6zrj .preset-slot-boot:nth-child(6)  { animation-delay: .18s; }
+#z6x6zrj .preset-slot-boot:nth-child(7)  { animation-delay: .21s; }
+#z6x6zrj .preset-slot-boot:nth-child(8)  { animation-delay: .24s; }
+
+#z6x6zrj .preset-slot-new {
+  animation: preset-pop-in .34s var(--spring) both;
+}
+@keyframes preset-pop-in {
+  0%   { opacity:0; transform:scale(.82) translateY(3px); box-shadow:0 0 0 0 var(--accent-glow); }
+  55%  { opacity:1; transform:scale(1.035) translateY(0); box-shadow:0 0 14px 1px var(--accent-glow); }
+  100% { opacity:1; transform:scale(1) translateY(0); box-shadow:0 0 0 0 transparent; }
+}
+
+
+
+/* ── Spotlight: upgraded aurora glow ── */
+#zbdr31b {
+  background: radial-gradient(320px circle at 50% 30%,
+    rgba(var(--ar), .07) 0%,
+    rgba(var(--ar), .02) 40%,
+    transparent 70%);
+  transition: opacity .4s ease;
+}
+
+/* ── Section headers: subtle reveal ── */
+.sec-head {
+  animation: float-in .2s var(--out) .05s both;
+}
+
+/* ── Footer status: glow on ok ── */
+#zupvay1.ok {
+  text-shadow: 0 0 8px rgba(48,209,88,.5);
+  transition: color .2s, text-shadow .2s;
+}
+#zupvay1.err {
+  text-shadow: 0 0 8px rgba(255,69,58,.4);
+  transition: color .2s, text-shadow .2s;
+}
+
+/* ── Tooltip: improved spring entrance ── */
+#z3zot60 {
+  transition:
+    opacity .1s var(--ease),
+    transform .16s var(--spring),
+    border-color .12s var(--ease),
+    box-shadow .12s var(--ease);
+}
+#z3zot60.visible {
+  box-shadow:
+    0 4px 24px rgba(0,0,0,.55),
+    0 0 12px rgba(var(--ar), .15),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* ── Key pills: spring bounce ── */
+.key-pill {
+  transition:
+    opacity .1s var(--ease),
+    transform .18s var(--spring),
+    box-shadow .15s var(--ease);
+}
+body.shift-held:not(.alt-held) .shift-pill {
+  box-shadow: 0 0 8px color-mix(in srgb, var(--pin-null-color) 30%, transparent);
+}
+body.alt-held:not(.shift-held) .alt-pill {
+  box-shadow: 0 0 8px color-mix(in srgb, var(--parent-null-color) 30%, transparent);
+}
+
+/* ── Settings view: polished slide-in ── */
+
+
+/* ── Tab underline: animated slide ── */
+.stab::after {
+  transition: opacity .15s var(--ease), transform .15s var(--spring);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.stab.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* ── Toggle: enhanced spring knob ── */
+.tog-k {
+  transition: transform .2s var(--spring), background .18s, box-shadow .18s;
+  box-shadow: 0 1px 4px rgba(0,0,0,.45), 0 0 0 0 rgba(var(--ar), 0);
+}
+.tog input:checked ~ .tog-k {
+  box-shadow: 0 1px 4px rgba(0,0,0,.45), 0 0 8px rgba(var(--ar), .3);
+}
+
+/* ── Swatch dots: spring pop + glow ── */
+.sw-dot {
+  transition:
+    transform .18s var(--spring),
+    box-shadow .15s var(--ease);
+}
+.sw-dot:hover {
+  transform: scale(1.22);
+  box-shadow: 0 0 10px currentColor, inset 0 0 0 2px rgba(0,0,0,.25);
+}
+.sw-dot.active {
+  box-shadow: 0 0 0 2px var(--e2), 0 0 0 3.5px currentColor, 0 0 14px currentColor;
+}
+
+/* ── Theme cards: hover lift ── */
+.theme-card {
+  transition:
+    border-color .15s var(--ease),
+    box-shadow .15s var(--ease),
+    transform .18s var(--spring);
+}
+.theme-card:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+.theme-card.active {
+  transform: translateY(-1px);
+}
+
+/* ── Drawer: spring entrance ── */
+@keyframes drawerSlideUp {
+  from { opacity:0; transform:translateY(10px) scale(.99); }
+  to   { opacity:1; transform:none; }
+}
+
+/* ── Seg buttons ── */
+.seg-b {
+  transition: background .12s var(--ease), color .12s var(--ease), transform .14s var(--spring);
+}
+.seg-b.on {
+  animation: pulse-glow 2.5s var(--ease) infinite;
+}
+.seg-b:active { transform: scale(.9); }
+
+/* ── Social links ── */
+.social-link {
+  transition:
+    background .15s var(--ease),
+    color .15s var(--ease),
+    transform .18s var(--spring),
+    box-shadow .15s var(--ease);
+}
+.social-link:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 0 0 1px var(--line-m),
+    0 4px 12px rgba(0,0,0,.3);
+}
+
+/* ── Info rows: subtle hover highlight ── */
+.info-row {
+  transition: background .1s var(--ease);
+  border-radius: var(--r-xs);
+}
+.info-row:hover { background: rgba(255,255,255,.025); }
+
+/* ── Back button: spring ── */
+#btn-back {
+  transition:
+    background .12s var(--ease),
+    color .12s var(--ease),
+    transform .18s var(--spring);
+}
+
+/* ── Slider thumb: glowing drag ── */
+input[type=range]:active::-webkit-slider-thumb {
+  box-shadow: 0 1px 5px rgba(0,0,0,.6), 0 0 0 5px rgba(var(--ar), .22);
+  transform: scale(1.15);
+}
+
+/* ── Null label dots: spring (base transition — structural rules below in color picker section) ── */
+
+/* ── Reduced motion: kill all enhancements ── */
+@media (prefers-reduced-motion: reduce) {
+  .action-btn::before,
+  .align-btn::before,
+  .lbtn::before { display: none; }
+  .v-logo-white { animation: none; -webkit-text-fill-color: #DDDDE4; background: none; }
+  #z8gm8kr, .sec-head { animation: none; }
+}
+
+/* ── Null label color picker ── */
+.null-label-wrap { position:relative; display:flex; align-items:center; }
+.null-label-dot {
+  width:14px; height:14px; border-radius:3px; border:1.5px solid var(--line-h);
+  cursor:pointer; flex-shrink:0; background:#555;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.2);
+  transition:transform var(--t) var(--spring), box-shadow var(--t) var(--ease);
+}
+.null-label-dot:hover { transform:scale(1.18); box-shadow:0 0 0 2px rgba(255,255,255,.15), inset 0 0 0 1px rgba(0,0,0,.2); }
+.null-label-dot.label-none { background:transparent; border-style:dashed; border-color:rgba(255,255,255,.25); }
+.null-label-picker {
+  position:fixed;
+  z-index:99999;
+  background:rgba(16,16,20,0.97);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.1);
+  border-top-color:rgba(255,255,255,.16);
+  border-radius:6px;
+  box-shadow:0 8px 24px rgba(0,0,0,.6), 0 0 0 .5px rgba(0,0,0,.4);
+  padding:6px;
+  box-sizing:border-box;
+  display:grid;
+  grid-template-columns:repeat(8, 1fr);
+  gap:3px;
+}
+/* "None" spans full width as its own row */
+.null-lbl-none-row {
+  grid-column:1 / -1;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding:2px 1px 4px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  margin-bottom:1px;
+  cursor:pointer;
+}
+.null-lbl-none-row:hover .null-lbl-none-swatch { border-color:rgba(255,255,255,.5); }
+.null-lbl-none-row:hover .null-lbl-none-label { color:var(--t-hi); }
+.null-lbl-none-swatch {
+  width:13px; height:13px; border-radius:2px;
+  border:1.5px dashed rgba(255,255,255,.3);
+  flex-shrink:0;
+  transition:border-color var(--t) var(--ease);
+}
+.null-lbl-none-swatch.active { border-color:#fff; }
+.null-lbl-none-label {
+  font-size:9px; font-weight:600; color:var(--t-mid);
+  letter-spacing:.03em; line-height:1;
+  transition:color var(--t) var(--ease);
+}
+.null-lbl-swatch {
+  width:100%; aspect-ratio:1; border-radius:2px;
+  border:1.5px solid transparent;
+  cursor:pointer; flex-shrink:0;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.3);
+  transition:transform .1s var(--spring), border-color .1s var(--ease), box-shadow .1s var(--ease);
+  position:relative;
+  min-width:0; padding:0;
+}
+.null-lbl-swatch:hover {
+  transform:scale(1.3);
+  z-index:1;
+  box-shadow:0 0 0 1.5px rgba(255,255,255,.55), inset 0 0 0 1px rgba(0,0,0,.3);
+}
+.null-lbl-swatch.active {
+  border-color:#fff;
+  box-shadow:0 0 0 1px rgba(255,255,255,.4), inset 0 0 0 1px rgba(0,0,0,.3);
+}
+.null-lbl-swatch.lbl-none {
+  background:transparent !important;
+  border:1.5px dashed rgba(255,255,255,.25);
+  box-shadow:none;
+}
+
+/* ══════════════════════════════════════════════
+   ✦ MAGICUI / REACTBITS DYNAMIC UPGRADE LAYER
+   Enhanced animations, fluid micro-interactions,
+   border beams, magnetic hover, shimmer sweeps
+   ══════════════════════════════════════════════ */
+
+/* ── Extra keyframes ── */
+@keyframes breathe-glow {
+  0%, 100% { opacity: .5; transform: scale(1); }
+  50%       { opacity: 1;  transform: scale(1.04); }
+}
+@keyframes status-pop {
+  0%   { transform: scale(.85); opacity: 0; }
+  60%  { transform: scale(1.05); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+@keyframes header-glow-pulse {
+  0%, 100% { box-shadow: 0 1px 0 var(--line), 0 4px 16px rgba(0,0,0,.3); }
+  50%       { box-shadow: 0 1px 0 rgba(var(--ar),.12), 0 4px 24px rgba(0,0,0,.4), 0 0 32px rgba(var(--ar),.04); }
+}
+@keyframes slot-shimmer {
+  from { transform: translateX(-140%) skewX(-12deg); }
+  to   { transform: translateX(330%) skewX(-12deg); }
+}
+@keyframes settings-row-in {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes tab-active-glow {
+  0%, 100% { text-shadow: none; }
+  50%       { text-shadow: 0 0 10px rgba(var(--ar),.45); }
+}
+@keyframes tog-on-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(var(--ar),.5); }
+  70%  { box-shadow: 0 0 0 5px rgba(var(--ar),0); }
+  100% { box-shadow: 0 0 0 0 rgba(var(--ar),0); }
+}
+@keyframes lbtn-icon-bounce {
+  0%, 100% { transform: translateY(0); }
+  40%       { transform: translateY(-2px); }
+  70%       { transform: translateY(1px); }
+}
+@keyframes preset-bar-grow {
+  from { transform: scaleY(0) scaleX(.5); opacity: 0; }
+  to   { transform: scaleY(1) scaleX(1); opacity: 1; }
+}
+@keyframes corner-flash {
+  0%   { opacity: 0; }
+  30%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes particle-rise {
+  0%   { opacity: .8; transform: translateY(0) scale(1); }
+  100% { opacity: 0;  transform: translateY(-18px) scale(0); }
+}
+
+/* ── Property registration for animated gradient borders ── */
+
+
+/* ══════════════════════════════════
+   HEADER: animated border-bottom beam
+   ══════════════════════════════════ */
+#z8gm8kr {
+  animation: float-in .28s var(--out) both;
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* ── Logo: enhanced shimmer + hover glow ── */
+.v-logo-wrap a {
+  transition: filter .2s var(--ease);
+}
+.v-logo-wrap:hover a {
+  filter: drop-shadow(0 0 6px rgba(var(--ar), .4));
+}
+.v-logo-accent {
+  display: inline-block;
+  transition: color .15s var(--ease), text-shadow .2s var(--ease);
+}
+.v-logo-wrap:hover .v-logo-accent {
+  text-shadow: 0 0 12px rgba(var(--ar), .7), 0 0 24px rgba(var(--ar), .35);
+}
+
+/* ══════════════════════════════════
+   ACTION BUTTONS: MagicUI border-beam
+   ══════════════════════════════════ */
+.action-btn {
+  isolation: isolate;
+}
+
+
+
+
+/* Enhanced lift */
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 0 0 1px rgba(var(--ar),.25),
+    0 8px 20px rgba(var(--ar),.16),
+    0 3px 8px rgba(0,0,0,.28);
+}
+.action-btn:active {
+  transform: translateY(0) scale(.97);
+  transition-duration: .07s;
+}
+
+/* ── Create button: draw-on rectangle animation ── */
+
+/* Lift the whole icon gently — no competing rule, single value */
+#z5lxdzf:hover svg {
+  transform: translateY(-2px) scale(1.06);
+  filter: drop-shadow(0 0 4px rgba(var(--ar), .45));
+}
+
+/* Dashed outline — visible at rest like Swap/Swapoly outlines, fades as solid draw takes over */
+.create-rect-dash {
+  opacity: 0.38;
+  transition: opacity .18s var(--ease);
+}
+/* Dots are trimmed away by a mask that runs just ahead of the solid line
+   (same path, same direction), so the dotted outline "turns into" the solid one. */
+.create-rect-trim {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset .55s cubic-bezier(.4,0,.2,1) .05s;   /* on leave: dots return just behind the retracting line */
+}
+#z5lxdzf:hover .create-rect-trim {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset .5s cubic-bezier(.4,0,.2,1);         /* on hover: leads the solid line slightly */
+}
+
+/* Solid outline draws around the rectangle on hover.
+   stroke-dashoffset goes 1000 → 0 in ~0.55 s, then reverses on leave. */
+.create-rect-draw {
+  transition:
+    stroke-dashoffset .55s cubic-bezier(.4,0,.2,1),
+    opacity .2s var(--ease);
+  opacity: 0;
+}
+#z5lxdzf:hover .create-rect-draw {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+
+/* Fill fades in after the outline has almost completed (0.45 s delay, 0.18 s fade) */
+.create-rect-fill {
+  transition: fill-opacity .18s var(--ease) .44s;
+}
+#z5lxdzf:hover .create-rect-fill {
+  fill-opacity: 0.13;
+}
+
+/* Cursor: visible at rest in the bottom-right corner of the icon,
+   matching how Swap/Swapoly show their red accent element at rest.
+   On hover it glides to the click position as the outline closes. */
+.create-cursor {
+  transform-box: view-box;
+  transform-origin: 430px 430px;
+  /* rest state: tucked to bottom-right, slightly smaller, full opacity */
+  transform: translate(22px, 22px) scale(0.82);
+  opacity: 1;
+  transition:
+    transform .52s cubic-bezier(.34,1.2,.44,1) .02s,
+    opacity   .18s var(--ease) .02s;
+}
+#z5lxdzf:hover .create-cursor {
+  transform: translate(0,0) scale(1);
+  opacity: 1;
+}
+
+/* Click pulse: a single scale-down-then-pop keyframe, timed to fire
+   right as the outline finishes (~0.55 s). Forward-fill holds the end state. */
+@keyframes createCursorClick {
+  0%   { transform: translate(0,0) scale(1); }
+  35%  { transform: translate(1px,1px) scale(0.82); }
+  55%  { transform: translate(1px,1px) scale(0.82); }
+  80%  { transform: translate(-1px,-1px) scale(1.1); }
+  100% { transform: translate(0,0) scale(1); }
+}
+#z5lxdzf:hover .create-cursor {
+  animation: createCursorClick .38s var(--ease) .54s 1 both;
+}
+
+/* Soft glow pulse on the filled rect timed with the cursor click — one shot */
+@keyframes createFillPulse {
+  0%   { filter: none; }
+  50%  { filter: drop-shadow(0 0 5px rgba(var(--ar),.8)) brightness(1.25); }
+  100% { filter: drop-shadow(0 0 2px rgba(var(--ar),.35)) brightness(1.05); }
+}
+#z5lxdzf:hover .create-rect-fill {
+  animation: createFillPulse .4s var(--ease) .9s 1 both;
+}
+/* Swap / Swapoly buttons: subtle lift + glow on the whole icon;
+   the actual "swap" motion is the orbit (see .swap-orbit above). */
+#zwe6oan:hover svg,
+#z9c7vk1:hover svg {
+  transform: scale(1.06);
+  transition: transform .3s var(--spring), filter .2s var(--ease);
+  filter: drop-shadow(0 0 5px rgba(var(--ar), .65));
+}
+
+/* ══════════════════════════════════
+   ALIGN GRID: glow pulse on active
+   ══════════════════════════════════ */
+.align-btn {
+  transition:
+    background var(--t-fast) var(--ease),
+    box-shadow var(--t-slow) var(--ease),
+    transform .14s var(--spring),
+    color var(--t-fast) var(--ease);
+}
+.align-btn:hover {
+  transform: scale(1.06);
+  z-index: 1;
+}
+.align-btn:active { transform: scale(.93); }
+.align-btn.active {
+  animation: breathe-glow 2.8s var(--ease) infinite;
+}
+.align-btn.active .dot {
+  filter: drop-shadow(0 0 5px rgba(var(--ar), 1)) drop-shadow(0 0 10px rgba(var(--ar), .6));
+}
+
+/* ══════════════════════════════════
+   LAYER BUTTONS: shimmer + bounce icon
+   ══════════════════════════════════ */
+.lbtn {
+  will-change: transform, box-shadow;
+  transition:
+    background var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease),
+    box-shadow var(--t-slow) var(--ease),
+    transform .16s var(--spring);
+}
+.lbtn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.1),
+    inset 0 0 0 1px rgba(var(--ar),.32),
+    0 5px 14px rgba(var(--ar),.13),
+    0 2px 5px rgba(0,0,0,.22);
+}
+.lbtn:hover svg {
+  animation: lbtn-icon-bounce .4s var(--spring);
+}
+
+/* Shimmer slot inside lbtn */
+.lbtn::before {
+  content: '';
+  position: absolute;
+  top: -20%; left: 0;
+  width: 36%; height: 140%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.09), transparent);
+  transform: translateX(-140%) skewX(-12deg);
+  pointer-events: none;
+}
+.lbtn:hover::before {
+  animation: slot-shimmer .55s var(--out) forwards;
+}
+
+/* ══════════════════════════════════
+   PRESET SLOTS: magnetic slide + beam
+   ══════════════════════════════════ */
+.preset-slot {
+  transition:
+    background .14s var(--ease),
+    box-shadow .18s var(--ease),
+    transform .18s var(--spring);
+  overflow: hidden;
+}
+.preset-slot:hover {
+  transform: translateX(3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 0 0 1px rgba(var(--ar),.22),
+    0 3px 10px rgba(0,0,0,.22);
+}
+.preset-slot.active {
+  transform: translateX(4px);
+}
+/* Animated entry bar */
+.preset-slot.active::before,
+.preset-slot:hover::before {
+  animation: preset-bar-grow .22s var(--spring) both;
+}
+
+/* ══════════════════════════════════
+   SETTINGS ROWS: stagger-in + hover glow
+   ══════════════════════════════════ */
+.tab-pane.active .sr {
+  animation: settings-row-in .2s var(--out) both;
+}
+.tab-pane.active .sr:nth-child(1)  { animation-delay: .03s; }
+.tab-pane.active .sr:nth-child(2)  { animation-delay: .06s; }
+.tab-pane.active .sr:nth-child(3)  { animation-delay: .09s; }
+.tab-pane.active .sr:nth-child(4)  { animation-delay: .12s; }
+.tab-pane.active .sr:nth-child(5)  { animation-delay: .15s; }
+.tab-pane.active .sr:nth-child(6)  { animation-delay: .18s; }
+.tab-pane.active .sr:nth-child(7)  { animation-delay: .21s; }
+.tab-pane.active .sr:nth-child(8)  { animation-delay: .24s; }
+
+.sr {
+  transition: background .12s var(--ease), box-shadow .12s var(--ease);
+  border-radius: 0;
+  position: relative;
+}
+.sr:hover {
+  background: rgba(var(--ar), .028);
+  box-shadow: inset 3px 0 0 rgba(var(--ar), .28);
+}
+
+/* Toggle: pulse on check */
+.tog input:checked ~ .tog-t {
+  background: var(--accent);
+  box-shadow: 0 0 0 1px rgba(var(--ar),.25);
+}
+.tog input:checked ~ .tog-k {
+  transform: translateX(12px);
+  box-shadow: 0 1px 4px rgba(0,0,0,.45), 0 0 8px rgba(var(--ar),.4);
+}
+.tog input:checked ~ .tog-t,
+.tog-t {
+  transition: background .2s var(--spring), box-shadow .2s var(--ease);
+}
+
+/* ── Settings tabs: glow on active ── */
+.stab.active {
+  animation: tab-active-glow 3s var(--ease) infinite;
+}
+
+/* ── Settings groups: subtle entrance ── */
+.tab-pane.active .sg {
+  animation: float-in .22s var(--out) both;
+}
+.tab-pane.active .sg:nth-child(2) { animation-delay: .05s; }
+.tab-pane.active .sg:nth-child(3) { animation-delay: .10s; }
+.tab-pane.active .sg:nth-child(4) { animation-delay: .15s; }
+
+/* ── Settings back button: spring ── */
+#btn-back {
+  transition: background .12s var(--ease), color .12s var(--ease), transform .2s var(--spring);
+}
+#btn-back:hover {
+  background: var(--e3);
+  color: var(--t-hi);
+  transform: translateX(-2px);
+}
+
+/* ── Swatch dots: particle pop ── */
+.sw-dot {
+  position: relative;
+}
+.sw-dot.active {
+  box-shadow: 0 0 0 2px var(--e2), 0 0 0 3.5px currentColor, 0 0 18px currentColor;
+  transform: scale(1.15);
+}
+
+/* ── Seg buttons: spring ── */
+.seg-b {
+  transition: background .12s var(--ease), color .12s var(--ease), transform .15s var(--spring), box-shadow .15s var(--ease);
+}
+.seg-b:hover:not(.on) { transform: translateY(-1px); }
+.seg-b.on {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), inset 0 0 0 1px rgba(var(--ar),.3), 0 0 8px rgba(var(--ar),.18);
+}
+
+/* ── Spotlight: larger softer aurora ── */
+#zbdr31b {
+  background: radial-gradient(380px circle at 50% 30%,
+    rgba(var(--ar), .065) 0%,
+    rgba(var(--ar), .018) 45%,
+    transparent 70%);
+  transition: opacity .5s ease;
+}
+
+/* ── Footer status: animated pop-in ── */
+#zupvay1.ok, #zupvay1.err {
+  animation: status-pop .3s var(--spring);
+}
+
+/* Toast — elevated glass effect */
+#zgtl0mq {
+  backdrop-filter: blur(32px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(1.4) !important;
+}
+
+/* ── Theme cards: levitate on hover ── */
+.theme-card {
+  transition:
+    border-color .15s var(--ease),
+    box-shadow .18s var(--ease),
+    transform .2s var(--spring);
+}
+.theme-card:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 14px rgba(0,0,0,.35);
+}
+.theme-card.active {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 0 0 1.5px rgba(var(--ar),.5), 0 0 14px rgba(var(--ar),.2);
+}
+
+/* ── Social links: levitate ── */
+.social-link {
+  transition:
+    background .15s var(--ease),
+    color .15s var(--ease),
+    transform .2s var(--spring),
+    box-shadow .15s var(--ease);
+}
+.social-link:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 0 0 1px var(--line-m),
+    0 6px 16px rgba(0,0,0,.35);
+}
+
+/* ── Reduced motion: respects preference ── */
+@media (prefers-reduced-motion: reduce) {
+  #z8gm8kr::after,
+  .action-btn::before,
+  .lbtn::before,
+  .v-logo-white,
+  .align-btn.active,
+  .seg-b.on,
+  .stab.active { animation: none !important; }
+  .v-logo-white { -webkit-text-fill-color: #DDDDE4; background: none; }
+}
+
+
+
+/* ══════════════════════════════════
+   PRESET MANAGER — in-panel sheet
+   (replaces the native ExtendScript dialog)
+   ══════════════════════════════════ */
+#pm-backdrop {
+  position:fixed; inset:0; z-index:10002;
+  display:flex; align-items:center; justify-content:center;
+  padding:8px;                       /* reduced so sheet has more room on narrow panels */
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);
+  animation:pmFade .16s var(--out) both;
+  box-sizing:border-box;
+}
+@keyframes pmFade  { from { opacity:0; } to { opacity:1; } }
+@keyframes pmSheet { from { opacity:0; transform:translateY(10px) scale(.98); } to { opacity:1; transform:none; } }
+#pm-sheet {
+  width:100%;
+  max-width:360px;
+  min-width:0;                       /* stretch down to panel width if needed */
+  max-height:calc(100% - 0px);
+  display:flex; flex-direction:column;
+  background:var(--e1);
+  border-radius:var(--r-xl);
+  box-shadow:
+    inset 0 0 0 1px var(--line-m),
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 20px 60px rgba(0,0,0,.65),
+    0 0 40px rgba(var(--ar),.06);
+  overflow:hidden;
+  animation:pmSheet .22s var(--out) both;
+  box-sizing:border-box;
+}
+#pm-head {
+  display:flex; align-items:center; gap:8px;
+  padding:10px 10px 9px 12px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,.04) 0%, transparent 100%);
+  flex-shrink:0;
+}
+#pm-title { flex:1; font-size:12px; font-weight:800; letter-spacing:-.03em; color:var(--t-hi); }
+#pm-title span { color:var(--accent); }
+#pm-count {
+  font-size:11px; font-weight:800; letter-spacing:.04em;
+  padding:2px 8px; border-radius:99px;
+  background:var(--accent-dim); color:var(--accent);
+  box-shadow:inset 0 0 0 1px rgba(var(--ar),.3);
+  min-width:22px; text-align:center;
+}
+.pm-x {
+  width:22px; height:22px; border:none; border-radius:var(--r-s);
+  background:transparent; color:var(--t-lo); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t) var(--spring);
+}
+.pm-x:hover  { background:var(--e3); color:var(--t-hi); }
+.pm-x:active { transform:scale(.86); }
+
+#pm-hint {
+  padding:8px 12px 2px; font-size:8.5px; color:var(--t-lo); line-height:1.4; flex-shrink:0;
+}
+
+#pm-list {
+  flex:1; min-height:0; overflow-y:auto;
+  padding:8px 10px 10px;
+  display:flex; flex-direction:column; gap:4px;
+  scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.08) transparent;
+}
+#pm-list::-webkit-scrollbar { width:3px; }
+#pm-list::-webkit-scrollbar-thumb { background:rgba(255,255,255,.1); border-radius:2px; }
+
+.pm-row {
+  display:flex; align-items:center; gap:6px;
+  padding:4px 4px 4px 8px;
+  background:rgba(255,255,255,.03);
+  border-radius:var(--r-m);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 0 1px var(--line);
+  transition:background .12s var(--ease), box-shadow .15s var(--ease), opacity .15s var(--ease);
+  animation:float-in .18s var(--out) both;
+}
+.pm-row:focus-within {
+  background:rgba(var(--ar),.06);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07), inset 0 0 0 1px rgba(var(--ar),.35);
+}
+.pm-row.bad { box-shadow:inset 0 0 0 1px rgba(255,69,58,.6); }
+.pm-row.deleted { opacity:.45; }
+.pm-row.deleted .pm-name { text-decoration:line-through; pointer-events:none; }
+.pm-idx {
+  width:16px; flex-shrink:0; text-align:center;
+  font-size:8px; font-weight:800; color:var(--t-lo);
+  font-variant-numeric:tabular-nums; letter-spacing:.04em;
+}
+.pm-name {
+  flex:1; min-width:0; height:24px;
+  background:transparent; border:none; outline:none;
+  color:var(--t-hi); font-family:inherit; font-size:11px; font-weight:500;
+  padding:0 2px;
+  user-select:text; -webkit-user-select:text;
+}
+.pm-tools { display:flex; gap:2px; flex-shrink:0; }
+.pm-ib {
+  width:22px; height:22px; border:none; border-radius:var(--r-s);
+  background:transparent; color:var(--t-mid); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t) var(--spring), opacity var(--t-fast) var(--ease);
+}
+.pm-ib:hover:not(:disabled)  { background:var(--e3); color:var(--t-hi); }
+.pm-ib:active:not(:disabled) { transform:scale(.84); }
+.pm-ib:disabled { opacity:.22; cursor:default; }
+.pm-ib.danger:hover:not(:disabled) { background:rgba(255,69,58,.14); color:var(--red); }
+.pm-ib.undo { width:auto; padding:0 7px; font-size:9px; font-weight:700; color:var(--accent); }
+.pm-ib svg { pointer-events:none; }
+
+#pm-empty {
+  padding:22px 10px; text-align:center;
+  font-size:10px; color:var(--t-lo); line-height:1.5;
+}
+#pm-err {
+  display:none; padding:0 12px 6px; font-size:9px; color:var(--red); flex-shrink:0;
+}
+#pm-err.show { display:block; }
+
+#pm-foot {
+  display:flex; flex-direction:column; gap:6px;
+  padding:8px 10px 10px;
+  border-top:1px solid var(--line);
+  background:linear-gradient(0deg, rgba(0,0,0,.18) 0%, transparent 100%);
+  flex-shrink:0;
+}
+#pm-status { font-size:9px; color:var(--t-lo); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#pm-status.dirty { color:var(--accent); }
+#pm-foot-btns { display:flex; gap:6px; align-items:center; justify-content:flex-end; }
+.pm-btn {
+  height:30px;                       /* taller so text never clips */
+  padding:0 14px;
+  min-width:max-content;             /* never clip label text */
+  white-space:nowrap;
+  border:none; border-radius:var(--r-s);
+  font-family:inherit; font-size:10px; font-weight:700; cursor:pointer;
+  transition:opacity var(--t-fast) var(--ease), background var(--t-fast) var(--ease), transform var(--t) var(--spring), box-shadow var(--t-fast) var(--ease);
+}
+.pm-btn:active:not(:disabled) { transform:scale(.94); }
+.pm-btn.ghost {
+  background:var(--e3); color:var(--t-mid);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 0 1px var(--line-m);
+}
+.pm-btn.ghost:hover { color:var(--t-hi); }
+.pm-btn.primary { background:var(--accent); color:#fff; box-shadow:0 0 12px rgba(var(--ar),.25); }
+.pm-btn.primary:hover:not(:disabled) { opacity:.9; }
+.pm-btn.primary:disabled { opacity:.35; cursor:default; box-shadow:none; }
+
+/* ══════════════════════════════════
+   PRESET SLOT — DRAG HANDLE ICON
+   Injected into DOM only while held; zero footprint otherwise.
+   ══════════════════════════════════ */
+.preset-drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width animated from 0 → 18px so layout shifts smoothly */
+  width: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  opacity: 0;
+  color: var(--accent);
+  pointer-events: none;
+  transition:
+    width .18s var(--spring),
+    opacity .15s var(--ease),
+    padding .18s var(--spring);
+  padding-left: 0;
+}
+.preset-drag-handle svg { display: block; flex-shrink: 0; }
+
+/* Expanded state — class toggled by JS */
+.preset-slot.holding .preset-drag-handle {
+  width: 18px;
+  padding-left: 6px;
+  opacity: 1;
+}
+
+/* Holding: lift + glow */
+.preset-slot.holding {
+  cursor: grab;
+  transform: translateX(3px) scale(1.012);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 0 0 1px rgba(var(--ar), .38),
+    0 6px 18px rgba(var(--ar), .18),
+    0 2px 6px rgba(0,0,0,.3);
+  background: rgba(var(--ar), .07);
+  z-index: 2;
+}
+.preset-slot.holding .preset-name { color: var(--t-hi); }
+.preset-slot.holding .preset-idx  { color: var(--accent); opacity: .7; }
+
+
+/* ══════════════════════════════════
+   ACTION BUTTONS — clean shimmer
+   Single ::before sweep on hover. No ::after conflict.
+   ══════════════════════════════════ */
+
+/* One-shot shimmer sweep on hover */
+.action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 50%; height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255,255,255,.10) 50%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: none;
+}
+.action-btn:hover::before {
+  animation: btn-shimmer .55s var(--out) forwards;
+}
+@keyframes btn-shimmer {
+  0%   { left: -80%; opacity: 1; }
+  100% { left: 140%; opacity: 0; }
+}
+
+/* Accent glow wash — replaces the broken fill-slide ::after */
+.action-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 50% 120%, rgba(var(--ar),.10) 0%, transparent 65%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity .25s var(--ease);
+}
+.action-btn:hover::after { opacity: 1; }
+
+
+/* ══════════════════════════════════
+   ANIMATION KILL SWITCH
+   body.no-animations disables all decorative
+   motion while preserving functional transitions
+   (page slides, settings open, toggle spring, etc.)
+   ══════════════════════════════════ */
+body.no-animations *,
+body.no-animations *::before,
+body.no-animations *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+/* Re-allow page slide and settings-open transitions (functional UX) */
+body.no-animations #zeyuezc,
+body.no-animations #view-settings,
+body.no-animations #zcskrz0 {
+  transition-duration: 0.22s !important;
+  animation-duration: 0.18s !important;
+}
+
+
+/* ══════════════════════════════════
+   ALIGN CONTAINER — visual overrides only (layout is in base rules above)
+   ══════════════════════════════════ */
+#zx87mzh { align-items:stretch; }
+body.theme-light #z09vp01 { background:var(--e2); box-shadow:inset 0 0 0 1px var(--line-m); }
+
+/* Override: grid-template-rows already 1fr in base; columns scale with flex width */
+#zplh277 { gap:4px; }
+
+.align-btn {
+  background:transparent;
+  box-shadow:none;
+  border-radius:var(--r-s);
+  z-index:auto;
+}
+.align-btn:hover {
+  background:rgba(var(--ar),.08);
+  box-shadow:none;
+  transform:none;
+}
+.align-btn:active { transform:scale(.92); }
+.align-btn.active {
+  background:transparent;
+  box-shadow:none;
+  animation:none;
+}
+.align-btn .ring { stroke:#3a3a44; }
+body.theme-light .align-btn .ring { stroke:#a5a5b2; }
+.align-btn .dot  { fill:#4a4a56; }
+
+/* v4 — cells never get a background/glow box; only the icon itself lights up */
+.align-btn,
+.align-btn:hover,
+.align-btn:active,
+.align-btn.active,
+.align-btn.mod-lit-shift,
+.align-btn.mod-lit-alt {
+  background:transparent !important;
+  box-shadow:none !important;
+  animation:none !important;
+}
+.align-btn::before, .align-btn::after { display:none !important; }
+.align-btn:hover .ring { stroke:rgba(var(--ar),.55); }
+.align-btn.mod-lit-shift .ring { stroke:rgba(var(--pin-r),.6); }
+.align-btn.mod-lit-alt   .ring { stroke:rgba(var(--parent-r),.6); }
+.align-btn.active .ring { stroke:var(--accent); }
+
+/* footer status duplicated the toast — removed */
+#zoh6ov0 { display:none !important; }
+
+/* v5 — every section shares one identical width/edge; nothing may poke past it */
+#zpa6r26 { width:100%; max-width:100%; overflow-x:hidden; }
+#zpa6r26 > * { width:100%; max-width:100%; min-width:0; box-sizing:border-box; }
+#zx87mzh, .sec, #zjd4d03 { padding-left:7px; padding-right:7px; }
+#zb318lj, #z6x6zrj { width:100%; min-width:0; }
+.lbtn, .preset-slot { max-width:100%; }
+/* sideways nudges made rows/buttons overflow the right edge — use in-place feedback only */
+.preset-slot:hover, .preset-slot.active, .preset-slot.holding { transform:none !important; }
+.lbtn:hover { transform:none; }
+#z6x6zrj { overflow-x:hidden; padding-right:0; }
+
+/* readable secondary text */
+.preset-idx { color:var(--t-mid); opacity:.9; font-size:8.5px; }
+.preset-slot:hover .preset-idx { opacity:1; }
+.preset-slot.active .preset-idx { color:var(--accent); opacity:1; }
+.pm-idx  { color:var(--t-mid); font-size:9px; }
+#pm-hint { color:var(--t-mid); font-size:9.5px; padding:9px 12px 3px; }
+#pm-status { color:var(--t-mid); }</style><style>[data-doc]{cursor:pointer}[data-doc]:hover{outline:1px dashed rgba(249,115,22,.8);outline-offset:1px}.doc-sel{outline:2px solid #F97316!important;outline-offset:1px;position:relative;z-index:9}html,body{overflow:hidden}div:has(>.mode-btn){display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:5px 7px 0}.mode-btn.active{color:var(--accent);background:rgba(var(--ar),.14)!important;box-shadow:inset 0 0 0 1px rgba(var(--ar),.6)!important}.mode-btn.danger:hover{color:#ff5a4f}</style></head><body><div id="z3zot60"></div>
+
+<div id="zbdr31b"></div>
+
+<div id="zc5fl8w">
+
+<div id="zeyuezc">
+<div id="zpa6r26">
+
+  
+  <div id="z8gm8kr">
+    <div class="h-left">
+      <div class="v-logo-wrap" data-doc="hdr">
+        <a href="#" onclick="return false">
+          <span class="v-logo-white" id="zw907rj" style="display:inline-flex"><span class="scatter-letter">V</span><span class="scatter-letter">R</span><span class="scatter-letter">e</span><span class="scatter-letter">c</span><span class="scatter-letter">t</span></span><span class="v-logo-accent" id="zlczc58" style="display:inline-flex"><span class="scatter-letter">P</span><span class="scatter-letter">r</span><span class="scatter-letter">o</span></span>
+        </a>
+      </div>
+    </div>
+    <div class="h-right">
+      
+      <div class="key-hint-wrapper">
+        <span class="key-pill shift-pill" id="zqqa7um" data-doc="mods"><b>⇧</b>&thinsp;<span id="zvqvlei">Fix Null</span></span>
+        <span class="key-pill alt-pill" id="zxq13ru" data-doc="mods"><b>⌥</b>&thinsp;<span id="z4c9tqf">Control Null</span></span>
+      </div>
+      <button class="icon-btn" id="zcskrz0" data-doc="gear" title="Settings" aria-label="Panel settings">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5.6 1.4 L5.2 2.8 A4.5 4.5 0 0 0 3.9 3.5 L2.5 3.1 L1.4 5.0 L2.5 6.0 A4.6 4.6 0 0 0 2.5 7.0 L1.4 8.0 L2.5 9.9 L3.9 9.5 A4.5 4.5 0 0 0 5.2 10.2 L5.6 11.6 H8.4 L8.8 10.2 A4.5 4.5 0 0 0 10.1 9.5 L11.5 9.9 L12.6 8.0 L11.5 7.0 A4.6 4.6 0 0 0 11.5 6.0 L12.6 5.0 L11.5 3.1 L10.1 3.5 A4.5 4.5 0 0 0 8.8 2.8 L8.4 1.4 Z" stroke="currentColor" stroke-width="1.15" stroke-linejoin="round" fill="none"/>
+          <circle cx="7" cy="6.5" r="1.9" stroke="currentColor" stroke-width="1.15"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  
+  <div id="zccrevx">
+    <button class="mode-btn lbtn" id="zacn6cf" data-doc="sel" data-mode="under"
+            title="Selection mode — sized to selection, placed under it &amp; linked to it">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3.5" y="3.5" width="17" height="17" rx="2" fill="currentColor" fill-opacity="0.16"/>
+        <path d="M3.5 8.5V5.5A2 2 0 0 1 5.5 3.5H8.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M15.5 3.5H18.5A2 2 0 0 1 20.5 5.5V8.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M20.5 15.5V18.5A2 2 0 0 1 18.5 20.5H15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M8.5 20.5H5.5A2 2 0 0 1 3.5 18.5V15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="mlbl lbtn-lbl">Selection</span>
+    </button>
+
+    <button class="mode-btn lbtn" id="zyyy0is" data-doc="matte" data-mode="matte"
+            title="Matte mode — sized to selection, used as its matte &amp; linked to it">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="5.5" width="18" height="13" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="12" cy="12" r="4.4" fill="currentColor" fill-opacity="0.8"/>
+      </svg>
+      <span class="mlbl lbtn-lbl">Matte</span>
+    </button>
+
+    <button class="mode-btn lbtn" id="zvdxxwb" data-doc="bg" data-mode="bg"
+            title="BG mode — sized to full comp">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3.5" y="4.5" width="17" height="15" rx="1.6" fill="currentColor" fill-opacity="0.85"/>
+      </svg>
+      <span class="mlbl lbtn-lbl">BG</span>
+    </button>
+
+    <button class="mode-btn lbtn danger" id="zhqe48k" data-doc="rem"
+            title="Remove VRectPro — keeps your shape, removes the controls">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="5" width="12.5" height="12.5" rx="2.2" stroke="currentColor" stroke-width="1.7" fill="currentColor" fill-opacity="0.1"/>
+        <circle cx="17.5" cy="17.5" r="5" fill="var(--panel-bg,#18181c)" stroke="currentColor" stroke-width="1.7"/>
+        <path d="M15.2 17.5H19.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span class="mlbl lbtn-lbl">Remove</span>
+    </button>
+  </div>
+
+  
+  <div id="zx87mzh">
+
+    
+    <div id="zehq7g0">
+      <button class="action-btn" id="z5lxdzf" data-doc="create" title="Create VRectPro">
+        <svg width="22" height="22" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          
+          <rect class="create-rect-fill" x="16" y="64" width="415" height="335" rx="54"
+                fill="currentColor" fill-opacity="0"/>
+          <defs>
+            
+            <mask id="z5ckvdf" maskUnits="userSpaceOnUse" x="-40" y="-40" width="592" height="592">
+              <rect x="-40" y="-40" width="592" height="592" fill="#fff"/>
+              <path class="create-rect-trim" d="M415.2,383.2 A54,54 0 0 1 377,399 L70,399 A54,54 0 0 1 16,345 L16,118 A54,54 0 0 1 70,64 L377,64 A54,54 0 0 1 431,118 L431,345 A54,54 0 0 1 415.2,383.2"
+                    fill="none" stroke="#000" stroke-width="56"
+                    stroke-linecap="round" stroke-linejoin="round" pathLength="1000"/>
+            </mask>
+          </defs>
+          
+          <rect class="create-rect-dash" x="16" y="64" width="415" height="335" rx="54"
+                fill="none" stroke="currentColor" stroke-width="32"
+                stroke-dasharray="32 64" stroke-linecap="round" opacity="0.45"
+                mask="url(#z5ckvdf)"/>
+          
+          <path class="create-rect-draw" d="M415.2,383.2 A54,54 0 0 1 377,399 L70,399 A54,54 0 0 1 16,345 L16,118 A54,54 0 0 1 70,64 L377,64 A54,54 0 0 1 431,118 L431,345 A54,54 0 0 1 415.2,383.2"
+                fill="none" stroke="currentColor" stroke-width="34" stroke-linecap="round"
+                stroke-linejoin="round"
+                pathLength="1000"
+                stroke-dasharray="1000"
+                stroke-dashoffset="1000"/>
+          
+          <g class="create-cursor">
+            <path d="M370 337 L370 495 L418 432 L497 432 Z"
+                  fill="#e05555" stroke="#e05555" stroke-width="28" stroke-linejoin="round"/>
+          </g>
+        </svg>
+        <span class="lbl">Create</span>
+      </button>
+
+      <button class="action-btn" id="zwe6oan" data-doc="swap" title="Replace shape with VRectPro">
+        <svg width="22" height="22" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g class="swap-orbit">
+            <g class="swap-sq swap-sq-back">
+              <rect class="swap-shape" x="196" y="106" width="209" height="209" rx="36" fill="rgba(78,158,255,.20)" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M470,320c-5,73-53,129-121,150-14,4-27,8-33,0" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M316,470l26-37" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </g>
+            <g class="swap-sq swap-sq-front">
+              <rect class="swap-shape" x="106" y="196" width="209" height="209" rx="0" fill="none" stroke="#e05555" stroke-width="32" stroke-linecap="round" stroke-linejoin="miter"/>
+              <path d="M42,196c5-73,53-133,121-154,14-4,27-8,33,0" stroke="#e05555" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M196,42l-26,37" stroke="#e05555" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </g>
+            <rect class="swap-shape swap-shape-top" visibility="hidden" x="196" y="106" width="209" height="209" rx="36" fill="rgba(78,158,255,.20)" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
+        <span class="lbl">Swap</span>
+      </button>
+
+      <button class="action-btn" id="z9c7vk1" data-doc="swapoly" title="Swap to VRectPoly — ⇧ to add fix nulls">
+        <svg width="22" height="22" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g class="swap-orbit">
+            <g class="swap-sq swap-sq-back">
+              <path class="swap-shape" d="M 222.86,155.34 L 267.23,123.11 Q 300.5,98.94 333.77,123.11 L 378.14,155.34 Q 411.42,179.51 398.72,218.65 L 381.78,270.83 Q 369.08,309.97 327.93,309.97 L 273.07,309.97 Q 231.92,309.97 219.22,270.83 L 202.28,218.65 Q 189.58,179.51 222.86,155.34 Z" fill="rgba(78,158,255,.20)" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M470,320c-5,73-53,129-121,150-14,4-27,8-33,0" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M316,470l26-37" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </g>
+            <g class="swap-sq swap-sq-front">
+              <path class="swap-shape" d="M 210.5,194.98 L 321.42,275.55 L 279.08,406.02 L 141.92,406.02 L 99.58,275.55 Z" fill="none" stroke="#e05555" stroke-width="32" stroke-linecap="round" stroke-linejoin="miter"/>
+              <path d="M42,196c5-73,53-133,121-154,14-4,27-8,33,0" stroke="#e05555" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M196,42l-26,37" stroke="#e05555" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </g>
+            <path class="swap-shape swap-shape-top" visibility="hidden" d="M 222.86,155.34 L 267.23,123.11 Q 300.5,98.94 333.77,123.11 L 378.14,155.34 Q 411.42,179.51 398.72,218.65 L 381.78,270.83 Q 369.08,309.97 327.93,309.97 L 273.07,309.97 Q 231.92,309.97 219.22,270.83 L 202.28,218.65 Q 189.58,179.51 222.86,155.34 Z" fill="rgba(78,158,255,.20)" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
+        <span class="lbl">Swapoly</span>
+      </button>
+    </div>
+
+    
+    <div id="z09vp01">
+      <div id="zplh277"><button class="align-btn" data-align="2" data-doc="grid"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.75" y="1.75" width="12.5" height="12.5" rx="1.75" stroke-width="1.25" class="ring"/><circle cx="2.5" cy="2.5" r="1.9" class="dot" shape-rendering="geometricPrecision"/></svg></button><button class="align-btn" data-align="3" data-doc="grid"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.75" y="1.75" width="12.5" height="12.5" rx="1.75" stroke-width="1.25" class="ring"/><circle cx="8.0" cy="2.5" r="1.9" class="dot" shape-rendering="geometricPrecision"/></svg></button><button class="align-btn" data-align="4" data-doc="grid"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.75" y="1.75" width="12.5" height="12.5" rx="1.75" stroke-width="1.25" class="ring"/><circle cx="13.5" cy="2.5" r="1.9" class="dot" shape-rendering="geometricPrecision"/></svg></button><button class="align-btn" data-align="5" data-doc="grid"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.75" y="1.75" width="12.5" height="12.5" rx="1.75" stroke-width="1.25" class="ring"/><circle cx="2.5" cy="8.0" r="1.9" class="dot" shape-rendering="geometricPrecision"/></svg></button><button class="align-btn active" data-align="1" data-doc="grid"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.75" y="1.75" width="12.5" height="12.5" rx="1.75" stroke-width="1.25" class="ring"/><circle cx="8.0" cy="8.0" r="1.9" class="dot" shape-rendering="geometricPrecision"/></svg></button><button class="align-btn" data-align="6" data-doc="grid"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.75" y="1.75" width="12.5" height="12.5" rx="1.75" stroke-width="1.25" class="ring"/><circle cx="13.5" cy="8.0" r="1.9" class="dot" shape-rendering="geometricPrecision"/></svg></button><button class="align-btn" data-align="7" data-doc="grid"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.75" y="1.75" width="12.5" height="12.5" rx="1.75" stroke-width="1.25" class="ring"/><circle cx="2.5" cy="13.5" r="1.9" class="dot" shape-rendering="geometricPrecision"/></svg></button><button class="align-btn" data-align="8" data-doc="grid"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.75" y="1.75" width="12.5" height="12.5" rx="1.75" stroke-width="1.25" class="ring"/><circle cx="8.0" cy="13.5" r="1.9" class="dot" shape-rendering="geometricPrecision"/></svg></button><button class="align-btn" data-align="9" data-doc="grid"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.75" y="1.75" width="12.5" height="12.5" rx="1.75" stroke-width="1.25" class="ring"/><circle cx="13.5" cy="13.5" r="1.9" class="dot" shape-rendering="geometricPrecision"/></svg></button></div>
+    </div>
+
+  </div>
+
+  
+  <div class="sec">
+    <div class="sec-head"><span class="sec-title">Layer</span></div>
+    <div id="zb318lj">
+
+      <div class="lbtn-group">
+      <button class="lbtn" id="zhe4a4x" data-doc="setdef" title="Save as default preset">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2" fill="currentColor" fill-opacity="0.08"/>
+          <path d="M6 3.5v4M4 5.5l2 2 2-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="3" y1="9" x2="9" y2="9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <span class="lbtn-lbl">Set default</span>
+      </button>
+
+      <button class="lbtn" id="zwkz72m" data-doc="reset" title="Clear saved default">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 3v5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="lbtn-lbl">Reset</span>
+      </button>
+      </div>
+
+      <div class="lbtn-group">
+      <button class="lbtn" id="z7e0061" data-doc="savep" title="Save as named preset">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="currentColor" fill-opacity="0.08"/>
+        </svg>
+        <span class="lbtn-lbl">Save preset</span>
+      </button>
+
+      <button class="lbtn" id="zd6wyko" data-doc="lib" title="Open preset library">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2h8.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5v-11z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="currentColor" fill-opacity="0.12"/>
+        </svg>
+        <span class="lbtn-lbl">Library</span>
+      </button>
+      </div>
+
+    </div>
+  </div>
+
+  
+  <div id="zjd4d03">
+    <div id="z7kxhii">
+      <span class="sec-title">Presets</span>
+    </div>
+    <div id="z6x6zrj"><div class="preset-slot active" data-value="d" data-doc="presets"><div class="preset-indicator"></div><div class="preset-name">Default</div></div><div class="preset-slot" data-doc="presets"><div class="preset-drag-handle"><svg width="8" height="12" viewBox="0 0 8 12" fill="none"><circle cx="2.5" cy="2.5" r="1.2" fill="currentColor"/><circle cx="5.5" cy="2.5" r="1.2" fill="currentColor"/><circle cx="2.5" cy="6" r="1.2" fill="currentColor"/><circle cx="5.5" cy="6" r="1.2" fill="currentColor"/><circle cx="2.5" cy="9.5" r="1.2" fill="currentColor"/><circle cx="5.5" cy="9.5" r="1.2" fill="currentColor"/></svg></div><div class="preset-indicator"></div><div class="preset-name">Lower third</div><span class="preset-idx">#1</span></div><div class="preset-slot" data-doc="presets"><div class="preset-drag-handle"><svg width="8" height="12" viewBox="0 0 8 12" fill="none"><circle cx="2.5" cy="2.5" r="1.2" fill="currentColor"/><circle cx="5.5" cy="2.5" r="1.2" fill="currentColor"/><circle cx="2.5" cy="6" r="1.2" fill="currentColor"/><circle cx="5.5" cy="6" r="1.2" fill="currentColor"/><circle cx="2.5" cy="9.5" r="1.2" fill="currentColor"/><circle cx="5.5" cy="9.5" r="1.2" fill="currentColor"/></svg></div><div class="preset-indicator"></div><div class="preset-name">Card</div><span class="preset-idx">#2</span></div><div class="preset-slot" data-doc="presets"><div class="preset-drag-handle"><svg width="8" height="12" viewBox="0 0 8 12" fill="none"><circle cx="2.5" cy="2.5" r="1.2" fill="currentColor"/><circle cx="5.5" cy="2.5" r="1.2" fill="currentColor"/><circle cx="2.5" cy="6" r="1.2" fill="currentColor"/><circle cx="5.5" cy="6" r="1.2" fill="currentColor"/><circle cx="2.5" cy="9.5" r="1.2" fill="currentColor"/><circle cx="5.5" cy="9.5" r="1.2" fill="currentColor"/></svg></div><div class="preset-indicator"></div><div class="preset-name">Pill button</div><span class="preset-idx">#3</span></div></div>
+  </div>
+
+  
+  <div id="zoh6ov0">
+    <div id="zupvay1"></div>
+  </div>
+
+</div>
+</div>
+
+
+</div>
+
+<div id="zgtl0mq">
+  <span id="zi54n7g"></span>
+  <span id="zuhg081"></span>
+  <button id="zbwu736">✕</button>
+</div>
+
+<script>(function(){var N={1:"Center",2:"Top left",3:"Top center",4:"Top right",5:"Middle left",6:"Middle right",7:"Bottom left",8:"Bottom center",9:"Bottom right"},b=document.body,sel=null;
+function mods(e){b.classList.toggle("shift-held",!!e.shiftKey);b.classList.toggle("alt-held",!!e.altKey)}
+["mousemove","mouseenter","keydown","keyup","mousedown"].forEach(function(t){document.addEventListener(t,mods)});
+document.addEventListener("mouseleave",function(){b.classList.remove("shift-held","alt-held")});
+document.addEventListener("click",function(e){var t=e.target.closest("[data-doc]");if(!t)return;e.preventDefault();
+var mb=t.closest(".mode-btn[data-mode]");if(mb){var was=mb.classList.contains("active");document.querySelectorAll(".mode-btn").forEach(function(x){x.classList.remove("active")});if(!was)mb.classList.add("active")}
+if(sel)sel.classList.remove("doc-sel");sel=t;t.classList.add("doc-sel");
+parent.postMessage({vrpDoc:1,k:t.dataset.doc,n:N[t.dataset.align]||"",shift:e.shiftKey,alt:e.altKey||e.metaKey},"*")},true)})();<\/script></body></html></script>
+<script>
+var D={
+hdr:["Header","VRectPro logo","Just branding. Hover the letters for a small animation."],
+gear:["Header","Settings (gear)","Opens the panel settings. The ones worth knowing are listed under Settings on this page."],
+mods:["Modifier hints","⇧ and ⌥ pills","Reminders for the two modifier keys. They light up while you hold a key over a button that uses it.",["⇧ Shift: adds Fix Nulls","⌥ Alt/Option: adds Control Nulls"]],
+sel:["Mode","Selection","Sizes the new shape to your selected layer, places it right under that layer and links the two so they move together.",["Click again to turn the mode off"]],
+matte:["Mode","Matte","Works like Selection, and also uses the shape as a matte for that layer.",["Click again to turn the mode off"]],
+bg:["Mode","BG","Makes a shape the size of your whole composition.",["Click again to turn the mode off"]],
+rem:["Action","Remove","Keeps your shape exactly as it looks and takes away the VRectPro controls.",[],"After Remove, the shape can no longer be adjusted with VRectPro."],
+create:["Action","Create","Builds a VRectPro (or a VRectPoly, if the chosen preset is a polygon) with the selected preset and the active mode. A short message tells you what was made.",["No mode: a new shape in your comp","Selection, Matte or BG: see the mode buttons"]],
+swap:["Action","Swap","Rebuilds the selected shape layer as a VRectPro and keeps all properties from the source layer. Your original is switched off, not deleted.",[]],
+swapoly:["Action","Swapoly","Rebuilds the selected shape layer (3 to 32 points) as a VRectPoly and keeps all properties from the source layer.",["⇧ Shift: also adds fix nulls at the corners"]],
+grid:["Anchor grid","Anchor grid","Moves the anchor point of your shape. It also works on other layers. The lit square shows the current anchor and follows your selection.",[]],
+setdef:["Layer","Set default","Saves the selected shape’s look as the Default for new shapes."],
+reset:["Layer","Reset","Clears your saved default and goes back to the built-in look."],
+savep:["Layer","Save preset","Saves the selected shape under a name. Asks before replacing a name you already use.",[],"Saving presets needs a recent After Effects. If you get an error, update it."],
+lib:["Layer","Library","Opens the preset manager. Rename, reorder or delete presets, then press Save changes."],
+presets:["Presets","Preset list","Click a preset to use it for your next Create. Drag to reorder. Right-click to rename or delete. Default can’t be moved or deleted.",[],"Deleting a preset can’t be undone."]
+};
+var tip=document.getElementById("tip");
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+var fr=document.getElementById("mockframe"),src=document.getElementById("mockSrc").textContent.replace(/<\\\/script/g,"</script");
+fr.srcdoc=src;
+window.addEventListener("message",function(e){var m=e.data;if(!m||!m.vrpDoc)return;
+var k=m.k,d=D[k],h;if(!d&&k!=="grid")return;
+if(k==="grid"){
+h='<div class="k">Anchor grid</div><h3>Anchor: '+esc(m.n)+'</h3><p>Moves your shape’s anchor point to this position. It also works on other layers.</p><div class="mod"><div class="'+(!m.shift&&!m.alt?"lit":"")+'"><kbd>Click</kbd> Move the anchor here</div><div class="'+(m.shift?"lit":"")+'"><kbd>⇧ Shift+Click</kbd> Add a Fix Null here</div><div class="'+(m.alt?"lit":"")+'"><kbd>⌥ Alt/Option+Click</kbd> Add a Control Null here</div></div><p class="hint">The lit square updates on its own when you select another layer.</p>';
+}else{
+h='<div class="k">'+esc(d[0])+'</div><h3>'+esc(d[1])+'</h3><p>'+esc(d[2])+'</p>';
+if(d[3]&&d[3].length)h+='<div class="mod">'+d[3].map(function(x){return"<div>"+esc(x)+"</div>"}).join("")+"</div>";
+if(d[4])h+='<div class="co warn" style="margin-top:14px"><b class="t">Heads up</b>'+esc(d[4])+"</div>";}
+tip.innerHTML=h});
+document.querySelectorAll(".tabs button").forEach(function(b){b.addEventListener("click",function(){
+document.querySelectorAll(".tabs button,.tp").forEach(function(x){x.classList.remove("on")});
+b.classList.add("on");document.getElementById(b.dataset.t).classList.add("on")})});
+</script></body></html>
